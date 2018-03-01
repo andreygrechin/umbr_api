@@ -1,0 +1,4 @@
+include LICENSE
+include README.rst
+include requirements.txt
+include umbr_api/data/customer_key_example.json
