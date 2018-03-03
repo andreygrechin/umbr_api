@@ -30,7 +30,6 @@ from umbr_api._key import get_key
 from umbr_api._http_requests import send_get
 
 
-
 def get_list(page=1, limit=10, key=None):
     """Return response tuple as response to API call.
 
@@ -85,16 +84,22 @@ def format_response(code, json_response):
             logger.exception(msg)
 
 
-def main():
+def main(test_key=None):
     """Test if executed directly."""
     # Standard request
-    response = get_list()
+    response = get_list(key=test_key)
     print(response.status_code,
           json.dumps(dict(response.headers), indent=4),
           json.dumps(json.loads(response.text), indent=4), sep='\n\n')
 
     # Request with pagination
-    response = get_list(page=2, limit=2)
+    response = get_list(page=2, limit=2, key=test_key)
+    print(response.status_code,
+          json.dumps(dict(response.headers), indent=4),
+          json.dumps(json.loads(response.text), indent=4), sep='\n\n')
+
+    # Request with pagination
+    response = get_list(page=1, limit=201, key=test_key)
     print(response.status_code,
           json.dumps(dict(response.headers), indent=4),
           json.dumps(json.loads(response.text), indent=4), sep='\n\n')

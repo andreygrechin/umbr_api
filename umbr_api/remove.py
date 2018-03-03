@@ -62,19 +62,18 @@ def format_response(response):
         logger.error('Status code: %d', json_response['statusCode'])
 
 
-def main():
+def main(test_key=None):
     """Test if executed directly."""
-    response = remove(record_id='29765170')
+    response = remove(record_id='29765170',
+                      domain_name='www.example.com',
+                      key=test_key)
     print(response.status_code,
           json.dumps(dict(response.headers), indent=4), sep='\n\n')
 
-    # response = remove(record_id=29765171)
-    # print(response.status_code,
-    #       json.dumps(dict(response.headers), indent=4), sep='\n\n')
-
-    # response = remove(domain_name='www.shopdisney.com')
-    # print(response.status_code,
-    #       json.dumps(dict(response.headers), indent=4), sep='\n\n')
+    response = remove(domain_name='www.example.com',
+                      key=test_key)
+    print(response.status_code,
+          json.dumps(dict(response.headers), indent=4), sep='\n\n')
 
 
 if __name__ == '__main__':

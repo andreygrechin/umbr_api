@@ -5,12 +5,17 @@
 import unittest
 
 
-class TestKey(unittest.TestCase):
+class TestCase(unittest.TestCase):
     """Main class."""
 
     def test_import_package(self):
         """Import of the package."""
         import umbr_api
+
+    def test_package_has_version_string(self):
+        """Have a __version__ string."""
+        import umbr_api
+        self.assertTrue(isinstance(umbr_api.__version__, str))
 
     def test_import_modules(self):
         """Import of modules."""

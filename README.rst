@@ -10,11 +10,16 @@ README
   * - Tests
     - | |build1| |requires|
       | |codacy| |codeclimate|
+      | |coveralls|
   * - Package
     - | |supported-versions| |supported-implementations|
       | |dev-status| |pypi-version| |license|
   * - GitHub
     - | |gh-release| |gh-tag| |gh-issues|
+
+.. |coveralls| image:: https://coveralls.io/repos/github/kolatz/umbr_api/badge.svg?branch=release%2F0.3
+    :target: https://coveralls.io/github/kolatz/umbr_api?branch=release%2F0.3
+    :alt: coveralls
 
 .. |build1| image:: https://travis-ci.org/kolatz/umbr_api.svg?branch=master
     :target: https://travis-ci.org/kolatz/umbr_api

@@ -19,10 +19,10 @@ References:
 import sys
 import argparse
 import logging
-from os import path
 import keyring
 import logzero
 from logzero import logger
+import umbr_api
 from umbr_api.get import get_list
 from umbr_api.add import add
 from umbr_api.remove import remove
@@ -74,25 +74,47 @@ def create_parser():
                         nargs=1,
                         type=str)
 
-    parser.add_argument('--keyring-add',
-                        help='Add API key to the keyring (MacOS)',
-                        nargs=1,
-                        type=str)
+    parser.add_argument('--force',
+                        help='Bypass Domain Acceptance Process while adding',
+                        action='store_true')
+
+    group.add_argument('--keyring-add',
+                       help='Add API key to the keyring (MacOS)',
+                       nargs=1,
+                       type=str)
 
     parser.add_argument('-v', '--verbose',
-                        help='Enable detail messages; Option is additive, '
+                        help='Enable detailed logging; Option is additive, '
                              'can be used up to 2 times',
                         action='count')
 
     parser.add_argument('-V', '--version',
-                        help='Show version and continue',
-                        action='count')
+                        help='Show version',
+                        action='store_true')
 
+    # print short usage description if no args was provided
     if len(sys.argv) == 1:
-        parser.print_help(sys.stderr)
-        raise SystemExit(1)
+        parser.print_usage(sys.stderr)
+        raise SystemExit(0)
 
     return parser.parse_args()
+
+
+def save_key(key):
+    """Save API key to the keychain."""
+    logger.debug('Saving API key to keyring')
+    keyring.set_password('python', umbr_api.__title__, key)
+    read_key = keyring.get_password('python', umbr_api.__title__)
+    print('Note: Any python program may have an access to this record\n'
+          'in the keychain under your credentials.')
+    if read_key == key:
+        code = 0
+        print('OK')
+    else:
+        code = 1
+        print('Error: Provided key doesn''t match to saved key.')
+        logging.error('Provided key doesn''t match to saved key.')
+    return code
 
 
 def setup_logging_level(verbose_level):
@@ -110,24 +132,13 @@ def setup_logging_level(verbose_level):
                                      level=logging.DEBUG)
 
 
-def get_version():
-    """Read and return package version number."""
-    logger.debug('Opening "__about__.py" to read version')
-
-    about = {}
-    with open(path.join(path.dirname(__file__), "__about__.py")) as py_file:
-        # pylint: disable=W0122
-        exec(py_file.read(), about)
-    return about['__version__']
-
-
-def main():
+def main(args=None):
     """Execute main body, console_script entry point."""
     key = None
-
-    args = create_parser()
-
     response = None
+    exit_code = 0
+    if not args:
+        args = create_parser()
 
     if args.verbose:
         setup_logging_level(args.verbose)
@@ -137,40 +148,40 @@ def main():
     logger.debug('Run with arguments: %s', str(args))
 
     if args.version:
-        print('Version: {}'.format(get_version()))
+        print('Version: {}'.format(umbr_api.__version__))
         raise SystemExit(0)
 
     if args.keyring_add:
-        logger.debug('Save API key to keyring')
-        keyring.set_password('umbrella', 'umbr_api', args.keyring_add[0])
-        raise SystemExit(0)
+        exit_code = save_key(args.keyring_add[0])
+        raise SystemExit(exit_code)
 
     if args.key:
         key = args.key[0]
         logger.debug('Use API key from command-line arguments')
     else:
-        logger.debug('Try to read API key from a keyring')
-        key = keyring.get_password('umbrella', 'umbr_api')
+        key = keyring.get_password('python', __file__)
+        if key:
+            logger.debug('Use API key from a keyring')
 
     if args.get_list:
         response = get_list(page=1, limit=args.get_list, key=key)
+        exit_code = response.status_code
 
     if args.add:
-        response = add(domain=args.add[0], url=args.add[1], key=key)
+        response = add(domain=args.add[0], url=args.add[1],
+                       key=key, bypass=args.force)
+        exit_code = response.status_code
 
     if args.remove_domain:
         response = remove(domain_name=args.remove_domain[0], key=key)
+        exit_code = response.status_code
 
     if args.remove_id:
         response = remove(record_id=args.remove_id[0], key=key)
+        exit_code = response.status_code
 
-    if response:
-        return_code = response.status_code
-    else:
-        return_code = 0
-
-    logger.debug('Return code: %d', return_code)
-    return return_code
+    logger.debug('Exit code: %d', exit_code)
+    raise SystemExit(exit_code)
 
 
 if __name__ == '__main__':

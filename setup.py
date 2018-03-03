@@ -44,6 +44,23 @@ setup(
         'logzero >= 1.3.1',
         'keyring >= 11.0.0',
     ],
+    extras_require={
+        'dev':  [
+            "coverage>=4.5.1",
+            "pytest>=3.4.1",
+            "setuptools>=38.5.1",
+            "Sphinx>=1.7.1",
+            "sphinx_rtd_theme>=0.2.4",
+            "twine>=1.9.1"
+        ],
+        'dev_recommended': [
+            "autopep8>=1.3.4",
+            "pep257>=0.7.0",
+            "pycodestyle>=2.3.1",
+            "pydocstyle>=2.1.1",
+            "pylint>=1.8.2"
+        ],
+    },
     package_data={
         'umbr_api': ['data/customer_key_example.json'],
     },
