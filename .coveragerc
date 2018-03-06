@@ -1,0 +1,24 @@
+[run]
+source =
+    umbr_api
+
+# branch = True
+
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain about missing debug-only code:
+    def __repr__
+    if self\.debug
+
+    # Don't complain if non-runnable code isn't run:
+    if __name__ == .__main__.:
+
+ignore_errors = True
+
+[paths]
+source =
+    umbr_api

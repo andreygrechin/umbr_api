@@ -1,0 +1,15 @@
+.DS_Store
+.vscode/
+*.code-workspace
+__pycache__/
+*.pyc
+venv/
+.eggs/
+*.egg-info/
+dist/
+docs/_build/
+.coverage
+*.py,cover
+.pytest_cache/
+
+customer_key.json
