@@ -52,7 +52,7 @@ class TestCaseMocking(unittest.TestCase):
                                   keyring_add=None, remove_domain=None,
                                   remove_id=None, verbose=2, version=False)
 
-        with mock.patch('requests.get') as mock_requests_post:
+        with mock.patch('requests.request') as mock_requests_post:
             mock_requests_post.return_value = my_response
 
             with self.assertRaises(SystemExit) as expected_exc:

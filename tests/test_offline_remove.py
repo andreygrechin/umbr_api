@@ -46,7 +46,7 @@ class TestCaseMocking(unittest.TestCase):
 
         my_response = FakeResponse(status_code, headers, body_text)
 
-        with mock.patch('requests.delete') as mock_requests_post:
+        with mock.patch('requests.request') as mock_requests_post:
             mock_requests_post.return_value = my_response
             main(test_key=FAKE_KEY)
 
@@ -73,7 +73,7 @@ class TestCaseMocking(unittest.TestCase):
 
         my_response = FakeResponse(status_code, headers, body_text)
 
-        with mock.patch('requests.delete') as mock_requests_post:
+        with mock.patch('requests.request') as mock_requests_post:
             mock_requests_post.return_value = my_response
             response = umbr_api.remove(record_id='29765170',
                                        domain_name='www.example.com',
@@ -103,7 +103,7 @@ class TestCaseMocking(unittest.TestCase):
 
         my_response = FakeResponse(status_code, headers, body_text)
 
-        with mock.patch('requests.delete') as mock_requests_post:
+        with mock.patch('requests.request') as mock_requests_post:
             mock_requests_post.return_value = my_response
             response = umbr_api.remove(domain_name='www.example.com',
                                        key=FAKE_KEY)

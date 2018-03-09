@@ -7,12 +7,21 @@ from logzero import logger
 
 def send_get(url):
     """Send HTTP GET request via 'requests' module."""
+    return send_any('GET', url)
+
+
+def send_any(method, url, headers=None, data=None):
+    """Send HTTP request via 'requests' module."""
     assert url
     assert isinstance(url, str)
     logger.info('Requesting: %s', url)
+    if headers:
+        logger.debug('Headers to send: %s', str(headers))
+    if data:
+        logger.debug('Data to send: %s', str(data))
 
     try:
-        response = requests.get(url)
+        response = requests.request(method, url, headers=headers, data=data)
     except requests.exceptions.RequestException as err_msg:
         logger.exception(err_msg)
         response = None
@@ -24,39 +33,12 @@ def send_get(url):
 
 def send_post(url, data=None, headers=None):
     """Send HTTP POST request via 'requests' module."""
-    assert url
-    assert isinstance(url, str)
-    logger.info('Requesting: %s', url)
-    logger.debug('Data to send: %s', str(data))
-    logger.debug('Headers to send: %s', str(headers))
-    try:
-        response = requests.post(url,
-                                 data=data,
-                                 headers=headers)
-    except requests.exceptions.RequestException as err_msg:
-        logger.exception(err_msg)
-        response = None
-    else:
-        response_logging(response)
-
-    return response
+    return send_any('POST', url, data=data, headers=headers)
 
 
 def send_delete(url, headers=None):
     """Send HTTP DELETE request via 'requests' module."""
-    assert url
-    assert isinstance(url, str)
-    logger.info('Requesting: %s', url)
-    logger.debug('Headers to send: %s', str(headers))
-    try:
-        response = requests.delete(url, headers=headers)
-    except requests.exceptions.RequestException as err_msg:
-        logger.exception(err_msg)
-        response = None
-    else:
-        response_logging(response)
-
-    return response
+    return send_any('DELETE', url, headers=headers)
 
 
 def response_logging(response):

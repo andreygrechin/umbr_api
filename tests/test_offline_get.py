@@ -46,7 +46,7 @@ class TestCaseMocking(unittest.TestCase):
 
         my_response = FakeResponse(status_code, headers, body_text)
 
-        with mock.patch('requests.get') as mock_requests_post:
+        with mock.patch('requests.request') as mock_requests_post:
             mock_requests_post.return_value = my_response
             main(test_key=FAKE_KEY)
 
@@ -73,7 +73,7 @@ class TestCaseMocking(unittest.TestCase):
 
         my_response = FakeResponse(status_code, headers, body_text)
 
-        with mock.patch('requests.get') as mock_requests_post:
+        with mock.patch('requests.request') as mock_requests_post:
             mock_requests_post.return_value = my_response
             response = umbr_api.get_list(page=1, limit=10, key=FAKE_KEY)
         assert response.status_code == status_code
@@ -101,7 +101,7 @@ class TestCaseMocking(unittest.TestCase):
 
         my_response = FakeResponse(status_code, headers, body_text)
 
-        with mock.patch('requests.get') as mock_requests_post:
+        with mock.patch('requests.request') as mock_requests_post:
             mock_requests_post.return_value = my_response
             response = umbr_api.get_list(page=1, limit=201, key=FAKE_KEY)
         assert response.status_code == status_code
