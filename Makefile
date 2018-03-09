@@ -3,7 +3,7 @@ all: clear-all install-dev test-offline docs built upload coverage-offline
 
 .PHONY: test
 test: clear-all install-dev
-	pytest -q --cache-clear tests/
+	pytest -k '' -q --cache-clear tests/
 
 .PHONY: test-online
 test-online: clear-all install-dev
@@ -20,11 +20,16 @@ lint:
 	pep257 -s -e tests/
 	pep257 -s -e examples/
 	pep257 -s -e setup.py
+	pylint umbr_api/ tests/*.py examples/ setup.py
 	# flake8 --statistics --count --exclude venv
 
 .PHONY: install-dev
 install-dev:
 	pip install -q -e .[dev]
+
+.PHONY: install-doc
+install-doc:
+	pip install -q -e .[doc]
 
 .PHONY: coverage-offline
 coverage-offline: clear-pyc clear-cov
@@ -46,7 +51,7 @@ upload: clear-all built
 	twine upload dist/*
 
 .PHONY: docs
-docs: clear-pyc install-dev
+docs: clear-pyc install-dev install-doc
 	$(MAKE) -C docs html
 
 .PHONY: built

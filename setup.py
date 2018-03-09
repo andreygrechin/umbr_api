@@ -5,24 +5,28 @@ from os import path
 from setuptools import setup
 
 with open(path.join(path.dirname(__file__), "README.rst")) as read_file:
-    long_description = read_file.read()
+    LONG_DESCRIPTION = read_file.read()
 
-base_dir = path.dirname(__file__)
-about = {}
-with open(path.join(base_dir, "umbr_api", "__about__.py")) as py_file:
+ABOUT = {}
+# pylint: disable=C0330
+with open(path.join(
+        path.dirname(__file__),
+        "umbr_api",
+        "__about__.py",
+        )) as py_file:
     # pylint: disable=W0122
-    exec(py_file.read(), about)
+    exec(py_file.read(), ABOUT)
 
 setup(
-    name=about["__title__"],
-    version=about["__version__"],
-    description=about["__summary__"],
-    long_description=long_description,
-    url=about["__uri__"],
-    author=about["__author__"],
-    author_email=about["__email__"],
+    name=ABOUT["__title__"],
+    version=ABOUT["__version__"],
+    description=ABOUT["__summary__"],
+    long_description=LONG_DESCRIPTION,
+    url=ABOUT["__uri__"],
+    author=ABOUT["__author__"],
+    author_email=ABOUT["__email__"],
     platforms="Darwin",
-    license=about["__license__"],
+    license=ABOUT["__license__"],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Education",
@@ -40,45 +44,47 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: Implementation :: CPython"
+        "Programming Language :: Python :: Implementation :: CPython",
     ],
-    keywords='cisco umbrella opendns security',
-    packages=['umbr_api'],
+    keywords="cisco umbrella opendns security",
+    packages=["umbr_api"],
     install_requires=[
-        'requests >= 2.18',
-        'logzero >= 1.3.1',
-        'keyring >= 11.0.0',
+        "requests >= 2.18",
+        "logzero >= 1.3.1",
+        "keyring >= 11.0.0",
     ],
     extras_require={
-        'dev':  [
+        "dev":  [
             "coverage>=4.5.1",
             "pytest>=3.4.1",
             "setuptools>=38.5.1",
+            "twine>=1.9.1",
+        ],
+        "doc":  [
             "Sphinx>=1.7.1",
             "sphinx_rtd_theme>=0.2.4",
-            "twine>=1.9.1"
         ],
-        'dev_lint': [
+        "dev_lint": [
             "autopep8>=1.3.4",
             "pep257>=0.7.0",
             "pycodestyle>=2.3.1",
             "pydocstyle>=2.1.1",
-            "pylint>=1.8.2"
+            "pylint>=1.8.2",
         ],
     },
     package_data={
-        'umbr_api': ['data/customer_key_example.json'],
+        "umbr_api": ["data/customer_key_example.json"],
     },
     entry_points={
-        'console_scripts': [
-            'umbrella=umbr_api.umbrella:main',
+        "console_scripts": [
+            "umbrella=umbr_api.umbrella:main",
         ],
     },
     project_urls={
-        'Cisco Umbrella': 'https://umbrella.cisco.com/',
-        'Cisco Umbrella Enforcement API': 'https://docs.umbrella.com/'
-                                          'developer/enforcement-api/'
+        "Cisco Umbrella": "https://umbrella.cisco.com/",
+        "Cisco Umbrella Enforcement API": "https://docs.umbrella.com/"
+                                          "developer/enforcement-api/",
     },
-    setup_requires=['pytest-runner'],
-    tests_require=['pytest'],
+    setup_requires=["pytest-runner"],
+    tests_require=["pytest"],
 )

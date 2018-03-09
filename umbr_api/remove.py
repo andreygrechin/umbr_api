@@ -7,7 +7,6 @@ References:
 """
 
 import json
-from urllib.parse import quote
 from logzero import logger
 from umbr_api._key import get_key
 from umbr_api._http_requests import send_delete
@@ -15,23 +14,14 @@ from umbr_api._http_requests import send_delete
 APP_JSON = {'Content-Type': 'application/json'}
 
 
-def remove(record_id=None, domain_name=None, key=None):
+def remove(record_id=None, key=None):
     """Remove a record from the policy."""
     key = get_key(key=key)
     response = None
 
-    if record_id and domain_name:
-        logger.warning('Both arguments are used. "id" is preferred.')
-
     if record_id:
         api_uri = """https://s-platform.api.opendns.com/1.0/domains/""" + \
                   """{0}?customerKey={1}""".format(record_id, key)
-        response = send_delete(api_uri, headers=APP_JSON)
-    elif domain_name and not record_id:
-        safe_url = quote(domain_name, safe='')
-
-        api_uri = """https://s-platform.api.opendns.com/1.0/domains/""" + \
-                  """{0}?customerKey={1}""".format(safe_url, key)
         response = send_delete(api_uri, headers=APP_JSON)
 
     format_response(response)
@@ -65,12 +55,11 @@ def format_response(response):
 def main(test_key=None):
     """Test if executed directly."""
     response = remove(record_id='29765170',
-                      domain_name='www.example.com',
                       key=test_key)
     print(response.status_code,
           json.dumps(dict(response.headers), indent=4), sep='\n\n')
 
-    response = remove(domain_name='www.example.com',
+    response = remove(record_id='www.example.com',
                       key=test_key)
     print(response.status_code,
           json.dumps(dict(response.headers), indent=4), sep='\n\n')

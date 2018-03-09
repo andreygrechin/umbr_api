@@ -10,6 +10,6 @@ from .add import add
 from .remove import remove
 
 __all__ = (
-    "__title__", "__summary__", "__uri__", "__version__", "__author__",
-    "__email__", "__license__", "__copyright__",
+    '__title__', '__summary__', '__uri__', '__version__', '__author__',
+    '__email__', '__license__', '__copyright__',
 )

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Wrapper for request module calls."""
 
+import json
 import requests
+
 from logzero import logger
 
 
@@ -45,9 +47,18 @@ def response_logging(response):
     """Log responses."""
     logger.info('Response code: %d', response.status_code)
     logger.info('Response headers: %s', str(response.headers)[:100])
-    logger.debug('Response headers:\n%s', str(response.headers))
+    logger.debug(
+        'Response headers:\n%s',
+        json.dumps(dict(response.headers), indent=4)
+        )
     logger.info('Response: %s', response.text[:100])
-    logger.debug('Response:\n%s', response.text)
+    if response.text:
+        logger.debug(
+            'Response:\n%s',
+            json.dumps(json.loads(response.text), indent=4)
+            )
+    else:
+        logger.debug('Response: <empty>')
 
 
 if __name__ == '__main__':
