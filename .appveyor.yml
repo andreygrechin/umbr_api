@@ -1,0 +1,46 @@
+# https://www.appveyor.com/docs/appveyor-yml/
+
+version: '{build}'
+max_jobs: 6
+build: off
+shallow_clone: true
+# clone_depth: 1
+environment:
+  fast_finish: true
+  matrix:
+
+    - PYTHON: "C:\\Python34"
+      PYTHON_VERSION: "3.4.4"
+      PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Python34-x64"
+      PYTHON_VERSION: "3.4.4"
+      PYTHON_ARCH: "64"
+
+    - PYTHON: "C:\\Python35"
+      PYTHON_VERSION: "3.5.3"
+      PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Python35-x64"
+      PYTHON_VERSION: "3.5.3"
+      PYTHON_ARCH: "64"
+
+    - PYTHON: "C:\\Python36"
+      PYTHON_VERSION: "3.6.4"
+      PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Python36-x64"
+      PYTHON_VERSION: "3.6.4"
+      PYTHON_ARCH: "64"
+
+init:
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
+  - "python --version"
+  - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
+install:
+  - "pip install --disable-pip-version-check --user --upgrade pip"
+  - "pip install -e ."
+  - "pip install -e .[dev]"
+test_script:
+  - "%CMD_IN_ENV% python setup.py test"
