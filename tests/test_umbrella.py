@@ -18,33 +18,13 @@ class TestCase(unittest.TestCase):
         # cannot use for tests under diff environments
         self.assertIsNotNone(expected_exc.exception.code)
 
-    def test_version(self):
-        """User passes no args, should exit with SystemExit."""
-        import argparse
-        from unittest import mock
-        from umbr_api.umbrella import main
-
-        args = argparse.Namespace(add=None, get_list=None, key=None,
-                                  keyring_add=None, remove_domain=None,
-                                  remove_id=None, verbose=2, version=1)
-
-        with mock.patch('umbr_api.umbrella.create_parser') as \
-                mock_create_parser:
-
-            mock_create_parser.return_value = args
-            with self.assertRaises(SystemExit) as expected_exc:
-                main()
-            self.assertEqual(expected_exc.exception.code, 0)
-
     def test_verbose_level(self):
         """User passes no args, should exit with SystemExit."""
         import argparse
         from unittest import mock
         from umbr_api.umbrella import main
 
-        args = argparse.Namespace(add=None, get_list=None, key=None,
-                                  keyring_add=None, remove_domain=None,
-                                  remove_id=None, verbose=1, version=1)
+        args = argparse.Namespace(command=None, verbose=1)
 
         with mock.patch('umbr_api.umbrella.create_parser') as \
                 mock_create_parser:
@@ -81,9 +61,12 @@ class OnlineTestCase(unittest.TestCase):
         from unittest import mock
         from umbr_api.umbrella import main
 
-        args = argparse.Namespace(add=None, get_list=10, key=None,
-                                  keyring_add=None, remove_domain=None,
-                                  remove_id=None, verbose=2, version=None)
+        args = argparse.Namespace(
+            command='get',
+            key=None,
+            max_records=5,
+            verbose=2,
+            )
 
         with mock.patch('umbr_api.umbrella.create_parser') as \
                 mock_create_parser:
@@ -99,9 +82,12 @@ class OnlineTestCase(unittest.TestCase):
         from unittest import mock
         from umbr_api.umbrella import main
 
-        args = argparse.Namespace(add=None, get_list=201, key=None,
-                                  keyring_add=None, remove_domain=None,
-                                  remove_id=None, verbose=1, version=None)
+        args = argparse.Namespace(
+            command='get',
+            key=None,
+            max_records=201,
+            verbose=2,
+            )
 
         with mock.patch('umbr_api.umbrella.create_parser') as \
                 mock_create_parser:

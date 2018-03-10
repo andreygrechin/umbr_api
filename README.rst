@@ -9,13 +9,18 @@ README
     - | |docs|
   * - Tests
     - | |build1| |requires|
+      | |appveyor| |coveralls|
       | |codacy| |codeclimate|
-      | |coveralls|
   * - Package
     - | |supported-versions| |supported-implementations|
       | |dev-status| |pypi-version| |license|
   * - GitHub
     - | |gh-release| |gh-tag| |gh-issues|
+
+
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/hptdwfa7mcsu5tla/branch/master?svg=true
+    :target: https://ci.appveyor.com/project/kolatz/umbr-api/
+    :alt: Appveyor Build Status
 
 .. |coveralls| image:: https://coveralls.io/repos/github/kolatz/umbr_api/badge.svg?branch=release%2F0.3
     :target: https://coveralls.io/github/kolatz/umbr_api?branch=release%2F0.3

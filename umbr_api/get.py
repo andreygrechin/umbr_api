@@ -87,22 +87,13 @@ def format_response(code, json_response):
 def main(test_key=None):
     """Test if executed directly."""
     # Standard request
-    response = get_list(key=test_key)
-    print(response.status_code,
-          json.dumps(dict(response.headers), indent=4),
-          json.dumps(json.loads(response.text), indent=4), sep='\n\n')
+    get_list(key=test_key)
 
     # Request with pagination
-    response = get_list(page=2, limit=2, key=test_key)
-    print(response.status_code,
-          json.dumps(dict(response.headers), indent=4),
-          json.dumps(json.loads(response.text), indent=4), sep='\n\n')
+    get_list(page=2, limit=2, key=test_key)
 
     # Request with pagination
-    response = get_list(page=1, limit=201, key=test_key)
-    print(response.status_code,
-          json.dumps(dict(response.headers), indent=4),
-          json.dumps(json.loads(response.text), indent=4), sep='\n\n')
+    get_list(page=1, limit=201, key=test_key)
 
 
 if __name__ == '__main__':

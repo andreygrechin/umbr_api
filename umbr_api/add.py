@@ -77,9 +77,9 @@ def add(domain=None, url=None, key=None, bypass=False):
               key
 
     if bypass:
-        bypass_str = "true"
+        bypass_str = 'true'
     else:
-        bypass_str = "false"
+        bypass_str = 'false'
 
     block_request_txt = """
     {{
@@ -122,21 +122,26 @@ def format_response(response):
 
 def main(test_key=None):
     """Test if executed directly."""
-    response = add(domain='www.example.com',
-                   url='https://www.example.com/test',
-                   key=test_key)
-    response = add(domain='www.example.com',
-                   url='www.example.com',
-                   key=test_key)
-    response = add(domain='www.example.com',
-                   url='www.example.com/test',
-                   key=test_key)
-    response = add(domain='www.example.com',
-                   url='https://www.example.com/test',
-                   key=test_key)
-    print(response.status_code,
-          json.dumps(dict(response.headers), indent=4),
-          json.dumps(json.loads(response.text), indent=4), sep='\n\n')
+    add(
+        domain='www.example.com',
+        url='https://www.example.com/test',
+        key=test_key,
+        )
+    add(
+        domain='www.example.com',
+        url='www.example.com',
+        key=test_key,
+        )
+    add(
+        domain='www.example.com',
+        url='www.example.com/test',
+        key=test_key,
+        )
+    add(
+        domain='www.example.com',
+        url='https://www.example.com/test',
+        key=test_key,
+        )
 
 
 if __name__ == '__main__':
