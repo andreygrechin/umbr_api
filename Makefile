@@ -51,15 +51,20 @@ upload: clear-all built
 	twine upload dist/*
 
 .PHONY: docs
-docs: clear-pyc install-dev install-doc
+docs: clear-doc install-dev install-doc
 	$(MAKE) -C docs html
+	$(BROWSER) docs/_build/html/index.html
 
 .PHONY: built
 built:
 	python3 setup.py sdist
 
 .PHONY: clear-all
-clear-all: clear-pyc clear-cov clear-build
+clear-all: clear-pyc clear-cov clear-build clear-doc
+
+.PHONY: clear-doc
+clear-doc:
+	$(MAKE) -C docs clean
 
 .PHONY: clear-pyc
 clear-pyc:
@@ -75,7 +80,20 @@ clear-cov:
 
 .PHONY: clear-build
 clear-build:
-	rm -fr docs/_build/
 	rm -fr dist/
 	rm -fr .eggs/
 	rm -fr *.egg-info/
+
+define BROWSER_PYSCRIPT
+import os, webbrowser, sys
+
+try:
+	from urllib import pathname2url
+except:
+	from urllib.request import pathname2url
+
+webbrowser.open("file://" + pathname2url(os.path.abspath(sys.argv[1])))
+endef
+export BROWSER_PYSCRIPT
+
+BROWSER := python3 -c "$$BROWSER_PYSCRIPT"

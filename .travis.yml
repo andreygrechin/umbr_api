@@ -22,7 +22,7 @@ matrix:
         env: DEV=true
 install:
 - pip install .
-- pip install .[dev]
+- pip install .[dev,doc]
 # branches:
 #   only:
 #   - master

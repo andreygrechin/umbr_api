@@ -218,6 +218,11 @@ def main(args=None):
             exit_code = show_key()
         raise SystemExit(exit_code)
 
+    if args.command:
+        if args.key is None:
+            logger.debug('Reading API key from a keychain')
+            args.key = keyring.get_password('python', umbr_api.__title__)
+
     if args.command == 'get':
         response = get_list(page=1, limit=args.max_records, key=args.key)
         exit_code = response.status_code

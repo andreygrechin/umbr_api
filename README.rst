@@ -8,14 +8,14 @@ README
   * - Docs
     - | |docs|
   * - Tests
-    - | |build1| |requires|
+    - | |travis| |requires|
       | |appveyor| |coveralls|
       | |codacy| |codeclimate|
   * - Package
     - | |supported-versions| |supported-implementations|
       | |dev-status| |pypi-version| |license|
   * - GitHub
-    - | |gh-release| |gh-tag| |gh-issues|
+    - | |gh-tag| |gh-issues|
 
 
 .. |appveyor| image:: https://ci.appveyor.com/api/projects/status/hptdwfa7mcsu5tla/branch/master?svg=true
@@ -26,7 +26,7 @@ README
     :target: https://coveralls.io/github/kolatz/umbr_api?branch=release%2F0.3
     :alt: coveralls
 
-.. |build1| image:: https://travis-ci.org/kolatz/umbr_api.svg?branch=master
+.. |travis| image:: https://travis-ci.org/kolatz/umbr_api.svg?branch=master
     :target: https://travis-ci.org/kolatz/umbr_api
     :alt: Travis Build Status
 
@@ -85,7 +85,7 @@ README
     :target: https://www.codacy.com/app/kolatz/umbr_api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kolatz/umbr_api&amp;utm_campaign=Badge_Grade
     :alt: Codacy Code Quality Status
 
-.. |gh-release| image:: https://img.shields.io/github/release/kolatz/umbr_api.svg
+.. |unused6| image:: https://img.shields.io/github/release/kolatz/umbr_api.svg
     :target: https://GitHub.com/kolatz/umbr_api/releases
     :alt: GitHub release
 
@@ -148,11 +148,12 @@ Examples:
 
 .. code-block:: bash
 
-    umbrella --add www.example.com http://www.example.com/images
-    umbrella --remove-domain www.example.com
-    umbrella --remove-id www.example.com --key YOUR-CUSTOMER-KEY-IS-HERE-0123456789
-    umbrella --get-list 100
-    umbrella --get-list --key YOUR-CUSTOMER-KEY-IS-HERE-0123456789
+    umbrella add www.example.com http://www.example.com/images
+    umbrella add example.com example.com --force
+    umbrella del www.example.com
+    umbrella del 555XXXXX --key YOUR-CUSTOMER-KEY-IS-HERE-0123456789
+    umbrella get-list 100
+    umbrella get --key YOUR-CUSTOMER-KEY-IS-HERE-0123456789
 
 Use API wrapper
 ---------------
@@ -190,7 +191,7 @@ How to use API key
 
 .. code:: bash
 
-    umbrella --remove-id www.example.com --key YOUR-CUSTOMER-KEY-IS-HERE-0123456789
+    umbrella del www.example.com --key YOUR-CUSTOMER-KEY-IS-HERE-0123456789
 
 2. Provide it as part of a program call
 
@@ -214,7 +215,8 @@ API key you can use:
 
 .. code-block:: bash
 
-    umbrella --keyring-add YOUR-CUSTOMER-KEY-IS-HERE-0123456789
+    umbrella keyring --add YOUR-CUSTOMER-KEY-IS-HERE-0123456789
+    umbrella keyring --show
 
 .. note::
     - Only MacOS platform is tested for keyrings

@@ -113,11 +113,12 @@ def format_response(response):
         print('OK')
     else:
         print('Error')
-        json_response = json.loads(response.text)
-        logger.error('%s', json_response['message'])
-        for key, value in json_response['errors'].items():
-            logger.error('%s %s', key, value)
-        logger.error('Status code: %d', json_response['statusCode'])
+        try:
+            json_response = json.loads(response.text)
+            for key, value in json_response.items():
+                logger.error('%s %s', key, value)
+        except KeyError as msg:
+            logger.exception(msg)
 
 
 def main(test_key=None):
