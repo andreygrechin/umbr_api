@@ -27,7 +27,7 @@ from umbr_api.get import get_list
 from umbr_api.add import add
 from umbr_api.remove import remove
 
-LOG_FORMAT = '%(asctime)s.%(msecs)03d %(module)13s[%(lineno)4d] ' \
+LOG_FORMAT = '%(asctime)s.%(msecs)03d %(module)14s[%(lineno)4d] ' \
              + '%(threadName)10s %(color)s%(levelname)8s%(end_color)s ' \
              + '%(message)s'
 
