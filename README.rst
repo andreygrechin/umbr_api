@@ -152,7 +152,7 @@ Examples:
     umbrella add example.com example.com --force
     umbrella del www.example.com
     umbrella del 555XXXXX --key YOUR-CUSTOMER-KEY-IS-HERE-0123456789
-    umbrella get-list 100
+    umbrella get 100
     umbrella get --key YOUR-CUSTOMER-KEY-IS-HERE-0123456789
 
 Use API wrapper

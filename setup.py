@@ -49,27 +49,27 @@ setup(
     keywords="cisco umbrella opendns security",
     packages=["umbr_api"],
     install_requires=[
-        "requests >= 2.18",
-        "logzero >= 1.3.1",
-        "keyring >= 11.0.0",
+        "requests ~= 2.18",
+        "logzero ~= 1.5",
+        "keyring ~= 12.0",
     ],
     extras_require={
         "dev":  [
             "coverage>=4.5.1",
-            "pytest>=3.4.1",
-            "setuptools>=38.5.1",
-            "twine>=1.9.1",
+            "pytest>=3.6.0",
+            "setuptools>=39.2.0",
+            "twine>=1.11.0",
         ],
         "doc":  [
-            "Sphinx>=1.7.1",
-            "sphinx_rtd_theme>=0.2.4",
+            "Sphinx>=1.7.4",
+            "sphinx_rtd_theme>=0.3.1",
         ],
         "dev_lint": [
-            "autopep8>=1.3.4",
+            "autopep8>=1.3.5",
             "pep257>=0.7.0",
-            "pycodestyle>=2.3.1",
+            "pycodestyle>=2.4.0",
             "pydocstyle>=2.1.1",
-            "pylint>=1.8.2",
+            "pylint>=1.9.1",
         ],
     },
     package_data={

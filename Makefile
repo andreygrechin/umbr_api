@@ -68,9 +68,9 @@ clear-doc:
 
 .PHONY: clear-pyc
 clear-pyc:
-	find . -type d -name '__pycache__' -exec rm -rf {} +
-	find . -type f -name '*.py[co]' -exec rm -f {} +
-	find . -type f -name '*~' -exec rm -f {} +
+	find . -type d -name '__pycache__' -not -path './venv/*' -exec rm -rf {} +
+	find . -type f -name '*.py[co]' -not -path './venv/*' -exec rm -f {} +
+	find . -type f -name '*~' -not -path './venv/*' -exec rm -f {} +
 
 .PHONY: clear-cov
 clear-cov:

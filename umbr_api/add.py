@@ -118,6 +118,8 @@ def format_response(response):
             for key, value in json_response.items():
                 logger.error('%s %s', key, value)
         except KeyError as msg:
+            print('Get abnormal code while adding:',
+                  response.status_code)
             logger.exception(msg)
 
 
