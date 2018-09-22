@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkolatz%2Fumbr_api.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkolatz%2Fumbr_api?ref=badge_shield)
+
 ======
 README
 ======
@@ -258,3 +260,6 @@ Who do I talk to
 ----------------
 
 -  https://github.com/kolatz/
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkolatz%2Fumbr_api.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkolatz%2Fumbr_api?ref=badge_large)
