@@ -5,20 +5,16 @@ python:
 - '3.4'
 - '3.5'
 - '3.6'
-# - '3.7'
-- 3.7-dev
-- 3.8-dev
+# - '3.8-dev'
 matrix:
-    fast_finish: true
-    # include:
-    #   - python: '3.4'
-    #   - python: '3.5'
-    #   - python: '3.6'
-    #   - python: '3.6-dev'
-    #   - python: '3.7-dev'
-    allow_failures:
-      - python: '3.8-dev'
-        env: DEV=true
+  fast_finish: true
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
+  # allow_failures:
+  #   - python: '3.8-dev'
+  #     env: DEV=true
 install:
 - pip install .
 - pip install .[dev,doc]
@@ -31,9 +27,9 @@ before_script:
   - pip install coveralls
 script:
   - make test-offline
-  - if [[ "$TRAVIS_PYTHON_VERSION" = 3.6 ]]; then coverage run -m pytest -k 'not Online' -q --cache-clear tests/; fi
+  - if [[ "$TRAVIS_PYTHON_VERSION" = 3.7 ]]; then coverage run -m pytest -k 'not Online' -q --cache-clear tests/; fi
 after_success:
-  - if [[ "$TRAVIS_PYTHON_VERSION" = 3.6 ]]; then coveralls; fi
+  - if [[ "$TRAVIS_PYTHON_VERSION" = 3.7 ]]; then coveralls; fi
 notifications:
   email:
     on_success: change
@@ -43,7 +39,7 @@ deploy:
   user: kolatz
   branch: master
   on:
-    python: '3.6'
+    python: '3.7'
     tags: true
     repo: kolatz/umbr_api
   password:

@@ -12,4 +12,4 @@ docs/_build/
 *.py,cover
 .pytest_cache/
 
-customer_key.json
+umbrella.json

@@ -40,7 +40,7 @@ class TestCaseMocking(unittest.TestCase):
         args = argparse.Namespace(
             command='keyring',
             key_to_add=None,
-            show=True,
+            show_enforcement=True,
             verbose=0,
             )
 
