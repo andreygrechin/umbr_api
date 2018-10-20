@@ -118,6 +118,14 @@ To install from a local folder execute at the ‘umbr_api’ root directory:
 
     pip3 install -e .
 
+To install extra requirements from a local folder execute at the ‘umbr_api’ root directory:
+
+.. code:: bash
+
+    pip3 install -e .[dev]
+    pip3 install -e .[doc]
+    pip3 install -e .[dev_lint]
+
 To install from production https://pypi.org execute:
 
 .. code:: bash
