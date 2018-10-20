@@ -10,26 +10,26 @@ class TestCase(unittest.TestCase):
 
     def test_get_key_from_api_call(self):
         """Check if key returns."""
-        from umbr_api._key import get_key
+        from umbr_api.credentials import get_key
         assert get_key(key='123456789012345678901234567890123456') == \
             '123456789012345678901234567890123456'
 
     def test_get_key_from_file(self):
         """Check if key will be read from the file."""
-        from umbr_api._key import get_key
-        assert get_key(filename='customer_key_example.json') == \
+        from umbr_api.credentials import get_key
+        assert get_key(filename='umbrella_example.json') == \
             'YOUR-CUSTOMER-KEY-IS-HERE-0123456789'
 
     def test_key_incorrect_chars(self):
         """Check for incorrect chars in the key."""
-        from umbr_api._key import get_key
+        from umbr_api.credentials import get_key
         with self.assertRaises(SystemExit) as expected_exc:
             get_key(key='12345678901234567890123456789012345+')
         self.assertEqual(expected_exc.exception.code, 1)
 
     def test_wrong_file(self):
         """Check if non existing json file was provided."""
-        from umbr_api._key import get_key
+        from umbr_api.credentials import get_key
         with self.assertRaises(SystemExit) as expected_exc:
             get_key(key=None, filename='unique12345.json')
             # check exit code
@@ -37,28 +37,28 @@ class TestCase(unittest.TestCase):
 
     def test_key_length_1(self):
         """Check for a longer key."""
-        from umbr_api._key import get_key
+        from umbr_api.credentials import get_key
         with self.assertRaises(SystemExit) as expected_exc:
             get_key(key='1234567890123456789012345678901234567')
         self.assertEqual(expected_exc.exception.code, 1)
 
     def test_key_length_2(self):
         """Check for a shorter key."""
-        from umbr_api._key import get_key
+        from umbr_api.credentials import get_key
         with self.assertRaises(SystemExit) as expected_exc:
             get_key(key='12345678901234567890123456789012345')
         self.assertEqual(expected_exc.exception.code, 1)
 
     def test_key_1(self):
         """Check reading from file if empty key as a str."""
-        from umbr_api._key import get_key
-        assert get_key(key='', filename='customer_key_example.json') == \
+        from umbr_api.credentials import get_key
+        assert get_key(key='', filename='umbrella_example.json') == \
             'YOUR-CUSTOMER-KEY-IS-HERE-0123456789'
 
     def test_key_2(self):
         """Check reading from file if key=None."""
-        from umbr_api._key import get_key
-        assert get_key(key=None, filename='customer_key_example.json') == \
+        from umbr_api.credentials import get_key
+        assert get_key(key=None, filename='umbrella_example.json') == \
             'YOUR-CUSTOMER-KEY-IS-HERE-0123456789'
 
     def test_incorrect_json(self):
@@ -66,22 +66,22 @@ class TestCase(unittest.TestCase):
         import os.path
         from unittest import mock
 
-        from umbr_api._key import get_key
+        from umbr_api.credentials import get_key
 
         json_test_file = os.path.join(os.path.dirname(__file__),
-                                      'data', 'customer_key_incorrect.json')
+                                      'data', 'umbrella_incorrect.json')
 
         with mock.patch('os.path.join') as mock_path_join:
             mock_path_join.return_value = json_test_file
 
             with self.assertRaises(SystemExit) as expected_exc:
-                get_key(filename='customer_key_incorrect.json')
+                get_key(filename='umbrella_incorrect.json')
                 # check exit code
             self.assertEqual(expected_exc.exception.code, 1)
 
     def test_main(self):
-        """Check main() from _key module."""
-        from umbr_api._key import main
+        """Check main() from ``credentials`` module."""
+        from umbr_api.credentials import main
         main()
 
 

@@ -43,16 +43,16 @@ class OnlineTestCase(unittest.TestCase):
         import keyring
         import umbr_api
         from umbr_api.umbrella import save_key
-        from umbr_api._key import get_key
+        from umbr_api.credentials import get_key
 
         # check existing key
         old_key = get_key(keyring.get_password('python', umbr_api.__title__))
 
         # save new test key
-        code = save_key('YOUR-CUSTOMER-KEY-IS-HERE-0123456789')
+        code = save_key('YOUR-CUSTOMER-KEY-IS-HERE-0123456789', "test")
         assert code == 0
 
-        code = save_key(old_key)
+        code = save_key(old_key, "test")
         assert code == 0
 
     def test_get(self):

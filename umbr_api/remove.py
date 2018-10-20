@@ -7,9 +7,11 @@ References:
 """
 
 import json
+
 from logzero import logger
-from umbr_api._key import get_key
+
 from umbr_api._http_requests import send_delete
+from umbr_api.credentials import get_key
 
 APP_JSON = {'Content-Type': 'application/json'}
 

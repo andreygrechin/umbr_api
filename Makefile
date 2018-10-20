@@ -15,6 +15,7 @@ test-offline: clear-all install-dev
 
 .PHONY: lint
 lint:
+	pip install -q -e .[dev_lint]
 	pycodestyle -r --statistics --count --show-source umbr_api/ tests/ examples/ setup.py
 	pep257 -s -e umbr_api/
 	pep257 -s -e tests/

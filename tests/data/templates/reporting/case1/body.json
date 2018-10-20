@@ -1,0 +1,37 @@
+{
+    "requests": [
+        {
+            "originId": 123987433,
+            "originType": "Internal Networks",
+            "internalIp": "192.168.100.200",
+            "externalIp": "185.183.107.232",
+            "categories": [
+                "Software/Technology",
+                "Cisco AMP Threat Grid",
+                "Infrastructure"
+            ],
+            "tags": [],
+            "destination": "github.map.fastly.net",
+            "originLabel": "Main LAN",
+            "actionTaken": "BLOCKED",
+            "datetime": "2018-10-16T21:39:42.414Z"
+        },
+        {
+            "originId": 123987433,
+            "originType": "Internal Networks",
+            "internalIp": "192.168.100.200",
+            "externalIp": "185.183.107.232",
+            "categories": [
+                "Blogs",
+                "Forums/Message boards",
+                "Cisco AMP Threat Grid",
+                "Application"
+            ],
+            "tags": [],
+            "destination": "s0.wp.com",
+            "originLabel": "Main LAN",
+            "actionTaken": "BLOCKED",
+            "datetime": "2018-10-16T21:36:40.661Z"
+        }
+    ]
+}

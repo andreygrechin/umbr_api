@@ -1,0 +1,19 @@
+{
+    "Server": "nginx",
+    "Date": "Tue, 16 Oct 2018 22:36:34 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "X-RateLimit-Limit-second": "5",
+    "X-RateLimit-Remaining-second": "4",
+    "X-RateLimit-Limit-minute": "14",
+    "X-RateLimit-Remaining-minute": "13",
+    "X-RateLimit-Limit-1800": "350",
+    "X-RateLimit-Remaining-1800": "347.43666666667",
+    "cache-control": "no-cache",
+    "vary": "accept-encoding",
+    "content-encoding": "gzip",
+    "X-Frame-Options": "SAMEORIGIN, SAMEORIGIN",
+    "X-XSS-Protection": "1; mode=block, 1; mode=block",
+    "Strict-Transport-Security": "max-age=2628000"
+}
