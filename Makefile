@@ -17,11 +17,12 @@ test-offline: clear-all install-dev
 lint:
 	pip install -q -e .[dev_lint]
 	pycodestyle -r --statistics --count --show-source umbr_api/ tests/ examples/ setup.py
+	pydocstyle -e --count --match='.+\.py' --match-dir='tests|umbr_api|examples'
 	pep257 -s -e umbr_api/
 	pep257 -s -e tests/
 	pep257 -s -e examples/
 	pep257 -s -e setup.py
-	pylint umbr_api/ tests/*.py examples/ setup.py
+	pylint --disable=R0401 umbr_api/ tests/*.py examples/ setup.py
 	# flake8 --statistics --count --exclude venv
 
 .PHONY: install-dev
