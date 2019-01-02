@@ -50,31 +50,32 @@ setup(
     keywords="cisco umbrella opendns security",
     packages=["umbr_api"],
     install_requires=[
-        "requests ~= 2.19",
-        "logzero ~= 1.5",
-        "keyring ~= 13.0",
+        "requests >= 2.21.0",
+        "logzero >= 1.5.0",
+        "keyring >= 17.1.1",
+        "tabulate >= 0.8.2",
     ],
     extras_require={
         "dev":  [
-            "coverage>=4.5.1",
-            "pytest>=3.8.0",
+            "coverage>=4.5.2",
+            "pytest>=4.0.0",
             "setuptools>=40.2.0",
-            "twine>=1.11.0",
+            "twine>=1.12.0",
         ],
         "doc":  [
-            "Sphinx>=1.7.9",
-            "sphinx_rtd_theme>=0.4.1",
+            "Sphinx>=1.8.0",
+            "sphinx_rtd_theme>=0.4.2",
         ],
         "dev_lint": [
-            "autopep8>=1.4",
+            "autopep8>=1.4.3",
             "pep257>=0.7.0",
             "pycodestyle>=2.4.0",
-            "pydocstyle>=2.1.1",
-            "pylint>=2.1.1",
+            "pydocstyle>=3.0.0",
+            "pylint>=2.2.2",
         ],
     },
     package_data={
-        "umbr_api": ["data/customer_key_example.json"],
+        "umbr_api": ["data/*_example.json"],
     },
     entry_points={
         "console_scripts": [

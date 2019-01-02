@@ -1,0 +1,104 @@
+[
+    {
+        "originId": 199580626,
+        "state": {
+            "connectedToConnector": "never",
+            "hasLocalDomainConfigured": "yes",
+            "queryFailureRateAcceptable": "yes",
+            "receivedInternalDNSQueries": "yes",
+            "redundantWithinSite": "yes",
+            "syncing": "yes"
+        },
+        "settings": {
+            "internalIPs": [
+                "192.168.200.151"
+            ],
+            "externalIP": "185.183.107.233",
+            "hostType": "hyperv",
+            "uptime": 194981,
+            "isDnscryptEnabled": false,
+            "version": "2.3.0",
+            "domains": [
+                "10.in-addr.arpa",
+                "16.172.in-addr.arpa",
+                "168.192.in-addr.arpa",
+                "17.172.in-addr.arpa",
+                "18.172.in-addr.arpa",
+                "19.172.in-addr.arpa",
+                "20.172.in-addr.arpa",
+                "21.172.in-addr.arpa",
+                "22.172.in-addr.arpa",
+                "23.172.in-addr.arpa",
+                "24.172.in-addr.arpa",
+                "25.172.in-addr.arpa",
+                "26.172.in-addr.arpa",
+                "27.172.in-addr.arpa",
+                "28.172.in-addr.arpa",
+                "29.172.in-addr.arpa",
+                "30.172.in-addr.arpa",
+                "31.172.in-addr.arpa",
+                "local"
+            ],
+            "lastSyncTime": "2018-10-16T22:32:07.000Z"
+        },
+        "siteId": 599748,
+        "health": "okay",
+        "type": "virtual_appliance",
+        "createdAt": "2018-10-04T19:46:46.000Z",
+        "modifiedAt": "2018-10-15T00:30:50.000Z",
+        "stateUpdatedAt": "2018-10-15T00:30:50.000Z",
+        "name": "umbrella2",
+        "isUpgradable": false
+    },
+    {
+        "originId": 199324265,
+        "state": {
+            "connectedToConnector": "never",
+            "hasLocalDomainConfigured": "yes",
+            "queryFailureRateAcceptable": "yes",
+            "receivedInternalDNSQueries": "yes",
+            "redundantWithinSite": "yes",
+            "syncing": "yes"
+        },
+        "settings": {
+            "internalIPs": [
+                "192.168.200.141"
+            ],
+            "externalIP": "185.183.107.233",
+            "hostType": "hyperv",
+            "uptime": 195063,
+            "isDnscryptEnabled": false,
+            "version": "2.3.0",
+            "domains": [
+                "10.in-addr.arpa",
+                "16.172.in-addr.arpa",
+                "168.192.in-addr.arpa",
+                "17.172.in-addr.arpa",
+                "18.172.in-addr.arpa",
+                "19.172.in-addr.arpa",
+                "20.172.in-addr.arpa",
+                "21.172.in-addr.arpa",
+                "22.172.in-addr.arpa",
+                "23.172.in-addr.arpa",
+                "24.172.in-addr.arpa",
+                "25.172.in-addr.arpa",
+                "26.172.in-addr.arpa",
+                "27.172.in-addr.arpa",
+                "28.172.in-addr.arpa",
+                "29.172.in-addr.arpa",
+                "30.172.in-addr.arpa",
+                "31.172.in-addr.arpa",
+                "local"
+            ],
+            "lastSyncTime": "2018-10-16T22:32:58.000Z"
+        },
+        "siteId": 599748,
+        "health": "okay",
+        "type": "virtual_appliance",
+        "createdAt": "2018-10-04T19:33:31.000Z",
+        "modifiedAt": "2018-10-08T12:34:55.000Z",
+        "stateUpdatedAt": "2018-10-08T12:34:55.000Z",
+        "name": "umbrella1",
+        "isUpgradable": false
+    }
+]

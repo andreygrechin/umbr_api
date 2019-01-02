@@ -1,4 +1,4 @@
 include LICENSE
 include README.rst
 include Makefile
-include umbr_api/data/customer_key_example.json
+include umbr_api/data/*_example.json

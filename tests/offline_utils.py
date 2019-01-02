@@ -28,6 +28,8 @@ class FakeResponse():
             self.headers = literal_eval(file.read())
         with open(body_file) as file:
             self.text = file.read()
+        # pylint: disable = C0103
+        self.ok = bool(self.status_code >= 200 or self.status_code < 400)
 
 
 if __name__ == '__main__':

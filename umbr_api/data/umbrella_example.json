@@ -1,0 +1,7 @@
+{
+    "orgid": "0000000",
+    "info": "_____Provide credentials as: `key:secret`, separated by colon_____",
+    "reporting": "YourKeyIsHere:YourSecretIsHere",
+    "management": "YourKeyIsHere:YourSecretIsHere",
+    "enforcement": "YOUR-CUSTOMER-KEY-IS-HERE-0123456789"
+}

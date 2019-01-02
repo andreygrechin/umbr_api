@@ -25,9 +25,11 @@ References:
 
 import json
 from datetime import datetime
+
 from logzero import logger
-from umbr_api._key import get_key
+
 from umbr_api._http_requests import send_get
+from umbr_api.credentials import get_key
 
 
 def get_list(page=1, limit=10, key=None):

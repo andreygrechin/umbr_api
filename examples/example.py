@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Example of using umbr_api.
 
-Enforcement API
-https://docs.umbrella.com/developer/enforcement-api/
-https://docs.umbrella.com/developer/enforcement-api/limits-responses-and-errors/
+References:
+    Enforcement API
+    https://docs.umbrella.com/developer/enforcement-api/
+    https://docs.umbrella.com/developer/enforcement-api/limits-responses-and-errors/
+
 """
 import json
 from umbr_api.get import get_list
@@ -11,7 +13,7 @@ from umbr_api.get import get_list
 
 def main():
     """Test if executed directly."""
-    response = get_list()
+    response = get_list(key="YOUR-CUSTOMER-KEY-IS-HERE-0123456789")
 
     block_list_json = json.loads(response.text)
     print(response.status_code,

@@ -1,0 +1,12 @@
+[
+    {
+        "ipAddress": "185.183.107.233",
+        "prefixLength": 32,
+        "status": "CLOSED",
+        "originId": 154312952,
+        "isDynamic": true,
+        "createdAt": "2018-06-02T08:03:31.000Z",
+        "name": "VPN Ams",
+        "isVerified": true
+    }
+]

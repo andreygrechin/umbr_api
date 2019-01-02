@@ -2,14 +2,14 @@
 """Wrapper for request module calls."""
 
 import json
-import requests
 
+import requests
 from logzero import logger
 
 
-def send_get(url):
+def send_get(url, headers=None):
     """Send HTTP GET request via 'requests' module."""
-    return send_any('GET', url)
+    return send_any('GET', url, headers)
 
 
 def send_any(method, url, headers=None, data=None):
@@ -28,6 +28,10 @@ def send_any(method, url, headers=None, data=None):
         logger.exception(err_msg)
         response = None
     else:
+        if not response.ok:
+            logger.warning('Response code: %d', response.status_code)
+            logger.warning('Response body: %d', response.text)
+            logger.warning('Response headers: %d', response.headers)
         response_logging(response)
 
     return response

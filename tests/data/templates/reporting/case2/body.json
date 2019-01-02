@@ -1,0 +1,11 @@
+{
+    "identities": [
+        {
+            "rank": 1,
+            "originLabel": "Main LAN",
+            "originType": "internal_network",
+            "originId": 123987433,
+            "numberOfRequests": 2
+        }
+    ]
+}

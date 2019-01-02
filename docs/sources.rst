@@ -31,6 +31,20 @@ remove.py
    :members:
    :noindex:
 
+management.py
+^^^^^^^^^^^^^
+
+.. automodule:: umbr_api.management
+   :members:
+   :noindex:
+
+reporting.py
+^^^^^^^^^^^^
+
+.. automodule:: umbr_api.reporting
+   :members:
+   :noindex:
+
 _http_requests.py
 ^^^^^^^^^^^^^^^^^
 
@@ -38,10 +52,10 @@ _http_requests.py
    :members:
    :noindex:
 
-_key.py
-^^^^^^^
+credentials.py
+^^^^^^^^^^^^^^
 
-.. automodule:: umbr_api._key
+.. automodule:: umbr_api.credentials
    :members:
    :noindex:
 
@@ -49,5 +63,12 @@ __about__.py
 ^^^^^^^^^^^^
 
 .. automodule:: umbr_api.__about__
+   :members:
+   :noindex:
+
+__init__.py
+^^^^^^^^^^^^
+
+.. automodule:: umbr_api.__init__
    :members:
    :noindex:

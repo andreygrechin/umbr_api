@@ -45,10 +45,12 @@ References:
 import json
 from datetime import datetime
 from urllib.parse import urlparse
+
 from logzero import logger
+
 import umbr_api
-from umbr_api._key import get_key
 from umbr_api._http_requests import send_post
+from umbr_api.credentials import get_key
 
 
 def add(domain=None, url=None, key=None, bypass=False):
@@ -125,26 +127,19 @@ def format_response(response):
 
 def main(test_key=None):
     """Test if executed directly."""
-    add(
+    result = add(
         domain='www.example.com',
         url='https://www.example.com/test',
         key=test_key,
         )
-    add(
+    assert result.status_code == 202
+
+    result = add(
         domain='www.example.com',
         url='www.example.com',
         key=test_key,
         )
-    add(
-        domain='www.example.com',
-        url='www.example.com/test',
-        key=test_key,
-        )
-    add(
-        domain='www.example.com',
-        url='https://www.example.com/test',
-        key=test_key,
-        )
+    assert result.status_code == 202
 
 
 if __name__ == '__main__':
