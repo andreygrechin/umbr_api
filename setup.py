@@ -16,7 +16,7 @@ with open(path.join(
         "__about__.py",
         )) as py_file:
     # pylint: disable=W0122
-    exec(py_file.read(), ABOUT)
+    exec(py_file.read(), ABOUT)  # nosec
 
 setup(
     name=ABOUT["__title__"],
@@ -98,4 +98,5 @@ setup(
     },
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
+    zip_safe=True,
 )
