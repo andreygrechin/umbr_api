@@ -31,8 +31,7 @@ def get_headers(cred=None, filename=None):
 
 
 def activity(
-        cred=None, orgid=None, limit=10,
-        start=None, stop=None, **kwargs):
+        cred=None, orgid=None, **kwargs):
     """Request the last security activities.
 
     Parameters:
@@ -53,6 +52,9 @@ def activity(
 
     """
     cfg_file = kwargs.get("filename", "umbrella.json")
+    limit = kwargs.get("limit", 10)
+    start = kwargs.get("start", None)
+    stop = kwargs.get("stop", None)
 
     if start and stop:
         time_filter = "&start={}&stop={}".format(start, stop)
@@ -64,14 +66,14 @@ def activity(
             limit,
             time_filter,
         )
-    response = send_get(
+    activity_response = send_get(
         url=api_uri,
         headers=get_headers(cred, filename=cfg_file),
     )
-    if response.status_code == 200:
-        table = json_to_table(json.loads(response.text)["requests"])
+    if activity_response.status_code == 200:
+        table = json_to_table(json.loads(activity_response.text)["requests"])
         print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
-    return response
+    return activity_response
 
 
 def top_identities(destination, cred=None, orgid=None, **kwargs):
@@ -92,17 +94,17 @@ def top_identities(destination, cred=None, orgid=None, **kwargs):
         "/{}/destinations/{}/identities".format(
             get_orgid(orgid, filename=cfg_file), destination
         )
-    response = send_get(
+    ident_response = send_get(
         url=api_uri,
         headers=get_headers(cred, filename=cfg_file),
     )
-    if response.status_code == 200:
-        table = json_to_table(json.loads(response.text)["identities"])
+    if ident_response.status_code == 200:
+        table = json_to_table(json.loads(ident_response.text)["identities"])
         print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
-    return response
+    return ident_response
 
 
-def recent(destination, cred=None, orgid=None, limit=10, offset=0, **kwargs):
+def recent(destination, cred=None, orgid=None, offset=0, **kwargs):
     """Request the most recent DNS requests for a particular destination.
 
     Parameters:
@@ -123,6 +125,7 @@ def recent(destination, cred=None, orgid=None, limit=10, offset=0, **kwargs):
 
     """
     cfg_file = kwargs.get("filename", "umbrella.json")
+    limit = kwargs.get("limit", 10)
 
     api_uri = "https://reports.api.umbrella.com/v1/organizations" + \
         "/{}/destinations/{}/activity?limit={}&offset={}".format(
@@ -131,14 +134,14 @@ def recent(destination, cred=None, orgid=None, limit=10, offset=0, **kwargs):
             limit,
             offset,
         )
-    response = send_get(
+    recent_response = send_get(
         url=api_uri,
         headers=get_headers(cred, filename=cfg_file),
     )
-    if response.status_code == 200:
-        table = json_to_table(json.loads(response.text)["requests"])
+    if recent_response.status_code == 200:
+        table = json_to_table(json.loads(recent_response.text)["requests"])
         print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
-    return response
+    return recent_response
 
 
 def main():

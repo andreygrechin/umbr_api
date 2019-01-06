@@ -45,6 +45,13 @@ LOG_FORMAT = '%(asctime)s.%(msecs)03d %(module)14s[%(lineno)4d] ' \
 FORMATTER = logzero.LogFormatter(fmt=LOG_FORMAT, datefmt='%H:%M:%S')
 logzero.setup_default_logger(formatter=FORMATTER, level=logging.WARNING)
 
+ENFORCEMENT_API_COMMANDS = ['get', 'add', 'del']
+MNGT_API_COMMANDS = [
+    'networks', 'roamingcomputers', 'internalnetworks',
+    'virtualappliances', 'sites', 'users', 'roles'
+]
+REPORTING_API_COMMANDS = ['activity', 'top', 'recent']
+
 
 def create_parser():
     """Create argparse parser, return args."""
@@ -477,7 +484,7 @@ def main(args=None):
 
         raise SystemExit(exit_code)
 
-    if args.command in ["get", "add", "del"]:
+    if args.command in ENFORCEMENT_API_COMMANDS:
         if args.key is None:
             logger.debug('Reading API credentials from the system keyring')
             args.key = keyring.get_password(
@@ -485,10 +492,7 @@ def main(args=None):
                 "enforcement"
             )
 
-    if args.command in [
-            "networks", "roamingcomputers", "internalnetworks",
-            "virtualappliances", "sites", "users", "roles",
-    ]:
+    if args.command in MNGT_API_COMMANDS:
         logger.debug('Reading OrgId from the system keyring')
         args.orgid = keyring.get_password(
             umbr_api.__title__,
@@ -501,9 +505,12 @@ def main(args=None):
             "management"
         )
 
-    if args.command in [
-            "activity", "top", "recent",
-    ]:
+        management_api_keys = {
+            'orgid': args.orgid, 'cred': args.key_management,
+            'limit': args.limit, 'page': args.page
+        }
+
+    if args.command in REPORTING_API_COMMANDS:
         logger.debug('Reading OrgId from the system keyring')
         args.orgid = keyring.get_password(
             umbr_api.__title__,
@@ -518,85 +525,54 @@ def main(args=None):
 
     if args.command == 'get':
         response = get_list(page=1, limit=args.max_records, key=args.key)
-        exit_code = response.status_code
 
     if args.command == 'add':
         response = add(domain=args.dns_name, url=args.url,
                        key=args.key, bypass=args.force)
-        exit_code = response.status_code
 
     if args.command == 'del':
         response = remove(record_id=args.record_id, key=args.key)
-        exit_code = response.status_code
 
     if args.command == 'networks':
-        response = umbr_api.management.networks(
-            orgid=args.orgid, cred=args.key_management, limit=args.limit,
-            page=args.page
-        )
-        exit_code = response.status_code
+        response = umbr_api.management.networks(**management_api_keys)
 
     if args.command == 'roamingcomputers':
-        response = umbr_api.management.roamingcomputers(
-            orgid=args.orgid, cred=args.key_management, limit=args.limit,
-            page=args.page
-        )
-        exit_code = response.status_code
+        response = umbr_api.management.roamingcomputers(**management_api_keys)
 
     if args.command == 'internalnetworks':
-        response = umbr_api.management.internalnetworks(
-            orgid=args.orgid, cred=args.key_management, limit=args.limit,
-            page=args.page
-        )
-        exit_code = response.status_code
+        response = umbr_api.management.internalnetworks(**management_api_keys)
 
     if args.command == 'virtualappliances':
-        response = umbr_api.management.virtualappliances(
-            orgid=args.orgid, cred=args.key_management, limit=args.limit,
-            page=args.page
-        )
-        exit_code = response.status_code
+        response = umbr_api.management.virtualappliances(**management_api_keys)
 
     if args.command == 'sites':
-        response = umbr_api.management.sites(
-            orgid=args.orgid, cred=args.key_management, limit=args.limit,
-            page=args.page
-        )
-        exit_code = response.status_code
+        response = umbr_api.management.sites(**management_api_keys)
 
     if args.command == 'users':
-        response = umbr_api.management.users(
-            orgid=args.orgid, cred=args.key_management, limit=args.limit,
-            page=args.page
-        )
-        exit_code = response.status_code
+        response = umbr_api.management.users(**management_api_keys)
 
     if args.command == 'roles':
-        response = umbr_api.management.roles(
-            orgid=args.orgid, cred=args.key_management, limit=args.limit,
-            page=args.page
-        )
-        exit_code = response.status_code
+        response = umbr_api.management.roles(**management_api_keys)
 
     if args.command == 'activity':
         response = umbr_api.reporting.activity(
             orgid=args.orgid, cred=args.key_reporting, limit=args.limit,
             start=args.start, stop=args.stop
         )
-        exit_code = response.status_code
 
     if args.command == 'top':
         response = umbr_api.reporting.top_identities(
             destination=args.destination, cred=args.key_reporting,
             orgid=args.orgid
         )
-        exit_code = response.status_code
 
     if args.command == 'recent':
         response = umbr_api.reporting.recent(
             destination=args.destination, cred=args.key_reporting,
             orgid=args.orgid, limit=args.limit, offset=args.offset
         )
+
+    if response is not None:
         exit_code = response.status_code
 
     logger.debug('Exit code: %d', exit_code)
