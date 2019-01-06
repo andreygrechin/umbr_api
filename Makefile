@@ -15,7 +15,7 @@ test-offline: clear-all install-dev
 
 .PHONY: lint
 lint:
-	pip install -q -e .[dev_lint]
+	pip install -q -e .[lint_dev]
 	pycodestyle -r --statistics --count --show-source umbr_api/ tests/ examples/ setup.py
 	pydocstyle -e --count --match='.+\.py' --match-dir='tests|umbr_api|examples'
 	pep257 -s -e umbr_api/
@@ -24,6 +24,17 @@ lint:
 	pep257 -s -e setup.py
 	pylint --disable=R0401 umbr_api/ tests/*.py examples/ setup.py
 	# flake8 --statistics --count --exclude venv
+
+.PHONY: lint_opt
+lint_opt:
+	pip install -q -e .[lint_opt]
+	bandit -r umbr_api/ tests/ examples/ ./setup.py --skip B101
+	isort --check-only -df -rc umbr_api/ tests/ examples/ setup.py
+	# isort -ac -rc umbr_api/ tests/ examples/ setup.py
+	flake8 --statistics --count umbr_api/ tests/ examples/ setup.py
+	safety check
+	check-manifest -v
+	pyroma -a ./
 
 .PHONY: install-dev
 install-dev:

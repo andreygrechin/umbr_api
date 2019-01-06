@@ -67,12 +67,20 @@ setup(
             "Sphinx>=1.8.0",
             "sphinx_rtd_theme>=0.4.2",
         ],
-        "dev_lint": [
+        "lint_dev": [
             "autopep8>=1.4.3",
             "pep257>=0.7.0",
             "pycodestyle>=2.4.0",
             "pydocstyle>=3.0.0",
             "pylint>=2.2.2",
+        ],
+        "lint_opt": [
+            "bandit>=1.5.1",
+            "isort>=4.3.4",
+            "flake8>=3.6.0",
+            "safety>=1.8.4",
+            "check-manifest>=0.37.0",
+            "pyroma>=2.4.0",
         ],
     },
     package_data={
