@@ -2,9 +2,9 @@
 # pylint: disable=R0201
 """Test unit."""
 
+import os
 import unittest
 from ast import literal_eval
-import os
 
 
 # pylint: disable=R0903

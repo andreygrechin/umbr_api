@@ -3,6 +3,7 @@
 """Test unit."""
 
 import unittest
+
 from offline_utils import FakeResponse
 
 FAKE_KEY = 'YOUR-CUSTOMER-KEY-IS-HERE-0123456789'

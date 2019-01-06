@@ -11,8 +11,8 @@ import json
 from logzero import logger
 from tabulate import tabulate
 
-from umbr_api.credentials import get_base64, get_orgid
 from umbr_api._http_requests import send_get
+from umbr_api.credentials import get_base64, get_orgid
 
 
 # pylint: disable = R0913

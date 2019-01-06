@@ -2,6 +2,7 @@
 """umbr_api setup script."""
 
 from os import path
+
 from setuptools import setup
 
 with open(path.join(path.dirname(__file__), "README.rst")) as read_file:

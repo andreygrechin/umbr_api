@@ -3,6 +3,7 @@
 """Test unit."""
 
 import unittest
+
 from offline_utils import FakeResponse
 
 
