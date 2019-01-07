@@ -2,3 +2,4 @@ include LICENSE
 include README.rst
 include Makefile
 include umbr_api/data/*_example.json
+include umbr_api/data/umbrella.jpg

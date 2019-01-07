@@ -84,7 +84,10 @@ setup(
         ],
     },
     package_data={
-        "umbr_api": ["data/*_example.json"],
+        "umbr_api": [
+            "data/*_example.json",
+            "data/umbrella.jpg",
+        ],
     },
     entry_points={
         "console_scripts": [
