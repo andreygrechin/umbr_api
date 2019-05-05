@@ -10,11 +10,9 @@ with open(path.join(path.dirname(__file__), "README.rst")) as read_file:
 
 ABOUT = {}
 # pylint: disable=C0330
-with open(path.join(
-        path.dirname(__file__),
-        "umbr_api",
-        "__about__.py",
-        )) as py_file:
+with open(
+    path.join(path.dirname(__file__), "umbr_api", "__about__.py")
+) as py_file:
     # pylint: disable=W0122
     exec(py_file.read(), ABOUT)  # nosec
 
@@ -57,22 +55,20 @@ setup(
         "tabulate >= 0.8.2",
     ],
     extras_require={
-        "dev":  [
+        "dev": [
             "coverage>=4.5.2",
             "pytest>=4.0.0",
             "setuptools>=40.2.0",
             "twine>=1.12.0",
         ],
-        "doc":  [
-            "Sphinx>=1.8.0",
-            "sphinx_rtd_theme>=0.4.2",
-        ],
+        "doc": ["Sphinx>=1.8.0", "sphinx_rtd_theme>=0.4.2"],
         "lint_dev": [
             "autopep8>=1.4.3",
             "pep257>=0.7.0",
             "pycodestyle>=2.4.0",
             "pydocstyle>=3.0.0",
             "pylint>=2.2.2",
+            "black>=19.3b0",
         ],
         "lint_opt": [
             "bandit>=1.5.1",
@@ -83,17 +79,8 @@ setup(
             "pyroma>=2.4.0",
         ],
     },
-    package_data={
-        "umbr_api": [
-            "data/*_example.json",
-            "data/umbrella.jpg",
-        ],
-    },
-    entry_points={
-        "console_scripts": [
-            "umbrella=umbr_api.umbrella:main",
-        ],
-    },
+    package_data={"umbr_api": ["data/*_example.json", "data/umbrella.jpg"]},
+    entry_points={"console_scripts": ["umbrella=umbr_api.umbrella:main"]},
     project_urls={
         "Cisco Umbrella": "https://umbrella.cisco.com/",
         "Cisco Umbrella Enforcement API": "https://docs.umbrella.com/"

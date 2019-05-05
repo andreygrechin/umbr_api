@@ -15,7 +15,7 @@ tests-offline: clear-all install-dev
 
 .PHONY: lint
 lint:
-	pip install -q -e .[lint_dev]
+	pip install -q -e .[lint_dev] --no-use-pep517
 	pycodestyle -r --statistics --count --show-source umbr_api/ tests/ examples/ setup.py
 	pydocstyle -e --count --match='.+\.py' --match-dir='umbr_api|tests|examples'
 	pep257 -s -e umbr_api/
@@ -26,7 +26,7 @@ lint:
 
 .PHONY: lint_opt
 lint_opt:
-	pip install -q -e .[lint_opt]
+	pip install -q -e .[lint_opt] --no-use-pep517
 	bandit -r umbr_api/ tests/ examples/ ./setup.py --skip B101
 	isort --check-only -df -rc umbr_api/ tests/ examples/ setup.py
 	safety check
@@ -37,12 +37,12 @@ lint_opt:
 
 .PHONY: install-dev
 install-dev:
-	pip install -q -e .[dev]
-	pip install -q -e .[doc]
+	pip install -q -e .[dev] --no-use-pep517
+	pip install -q -e .[doc] --no-use-pep517
 
 .PHONY: install-doc
 install-doc:
-	pip install -q -e .[doc]
+	pip install -q -e .[doc] --no-use-pep517
 
 .PHONY: coverage-offline
 coverage-offline: clear-pyc clear-cov

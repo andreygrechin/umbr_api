@@ -4,7 +4,7 @@
 
 Note:
     When posting data to the Security Platform API, the following steps are
-    taken before the domain appears in a customer's block list. The optional
+    taken before the domain appears in a customer`s block list. The optional
     parameter "disableDstSafeguards" can be used to bypass parts of this
     process as outlined in the Generic Event Format Field Descriptions.
     The domain acceptance process is outlined from start to finish here:
@@ -60,28 +60,30 @@ def add(domain=None, url=None, key=None, bypass=False):
     assert isinstance(url, str)
 
     if domain != url:
-        if url[0:7] == 'http://' or url[0:8] == 'https://':
+        if url[0:7] == "http://" or url[0:8] == "https://":
             check_url = urlparse(url).hostname
         else:
-            check_url = urlparse('http://' + url).hostname
+            check_url = urlparse("http://" + url).hostname
 
         if domain != check_url:
-            logger.warning('Domain name part from URL '
-                           'doesn\'t match DNS domain name')
-            logger.warning('DNS domain name: %s', domain)
-            logger.warning('URL domain name: %s', check_url)
+            logger.warning(
+                "Domain name part from URL " "doesn`t match DNS domain name"
+            )
+            logger.warning("DNS domain name: %s", domain)
+            logger.warning("URL domain name: %s", check_url)
 
     key = get_key(key=key)
     response = None
 
-    time_str = (datetime.utcnow()).isoformat(sep='T') + 'Z'
-    api_uri = 'https://s-platform.api.opendns.com/1.0/events?customerKey=' + \
-              key
+    time_str = (datetime.utcnow()).isoformat(sep="T") + "Z"
+    api_uri = (
+        "https://s-platform.api.opendns.com/1.0/events?customerKey=" + key
+    )
 
     if bypass:
-        bypass_str = 'true'
+        bypass_str = "true"
     else:
-        bypass_str = 'false'
+        bypass_str = "false"
 
     block_request_txt = """
     {{
@@ -94,16 +96,20 @@ def add(domain=None, url=None, key=None, bypass=False):
         "protocolVersion": "1.0a",
         "providerName": "Security Platform",
         "disableDstSafeguards": {disableDstSafeguards}
-    }}""".format(alertTime=time_str,
-                 deviceVersion=umbr_api.__version__,
-                 dstDomain=domain,
-                 dstUrl=url,
-                 eventTime=time_str,
-                 disableDstSafeguards=bypass_str)
+    }}""".format(
+        alertTime=time_str,
+        deviceVersion=umbr_api.__version__,
+        dstDomain=domain,
+        dstUrl=url,
+        eventTime=time_str,
+        disableDstSafeguards=bypass_str,
+    )
 
-    response = send_post(api_uri,
-                         data=block_request_txt,
-                         headers={'Content-Type': 'application/json'})
+    response = send_post(
+        api_uri,
+        data=block_request_txt,
+        headers={"Content-Type": "application/json"},
+    )
     format_response(response)
 
     return response
@@ -112,35 +118,30 @@ def add(domain=None, url=None, key=None, bypass=False):
 def format_response(response):
     """Format results."""
     if response.status_code == 202:
-        print('OK')
+        print("OK")
     else:
-        print('Error')
+        print("Error")
         try:
             json_response = json.loads(response.text)
             for key, value in json_response.items():
-                logger.error('%s %s', key, value)
+                logger.error("%s %s", key, value)
         except KeyError as msg:
-            print('Get abnormal code while adding:',
-                  response.status_code)
+            print("Get abnormal code while adding:", response.status_code)
             logger.exception(msg)
 
 
 def main(test_key=None):
     """Test if executed directly."""
     result = add(
-        domain='www.example.com',
-        url='https://www.example.com/test',
+        domain="www.example.com",
+        url="https://www.example.com/test",
         key=test_key,
-        )
+    )
     assert result.status_code == 202
 
-    result = add(
-        domain='www.example.com',
-        url='www.example.com',
-        key=test_key,
-        )
+    result = add(domain="www.example.com", url="www.example.com", key=test_key)
     assert result.status_code == 202
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

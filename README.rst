@@ -15,7 +15,7 @@ README
     - | |supported-versions| |supported-implementations|
       | |dev-status| |pypi-version| |license|
   * - GitHub
-    - | |gh-tag| |gh-issues|
+    - | |gh-tag| |gh-issues| |code-style|
 
 
 .. |appveyor| image:: https://ci.appveyor.com/api/projects/status/hptdwfa7mcsu5tla/branch/master?svg=true
@@ -96,6 +96,10 @@ README
 .. |gh-issues| image:: https://img.shields.io/github/issues/kolatz/umbr_api.svg
     :target: https://GitHub.com/kolatz/umbr_api/issues
     :alt: GitHub issues
+
+.. |code-style| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/python/black
+    :alt: Code style: black
 
 **umbr_api** is Cisco Umbrella APIs wrapper and a command-line
 utility.
