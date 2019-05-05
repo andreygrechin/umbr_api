@@ -17,6 +17,9 @@ README
   * - GitHub
     - | |gh-tag| |gh-issues| |code-style|
 
+.. |docs| image:: https://readthedocs.org/projects/umbr-api/badge/?style=flat
+    :target: https://readthedocs.org/projects/umbr_api
+    :alt: Documentation Status
 
 .. |appveyor| image:: https://ci.appveyor.com/api/projects/status/hptdwfa7mcsu5tla/branch/master?svg=true
     :target: https://ci.appveyor.com/project/kolatz/umbr-api/
