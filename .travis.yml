@@ -31,7 +31,7 @@ before_script:
   - pip install coveralls
 script:
   - cat Makefile
-  - make test-offline
+  - make tests-offline
   - if [[ "$TRAVIS_PYTHON_VERSION" = 3.7 ]]; then coverage run -m pytest -k 'not Online' -q --cache-clear tests/; fi
 after_success:
   - if [[ "$TRAVIS_PYTHON_VERSION" = 3.7 ]]; then coveralls; fi
