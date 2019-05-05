@@ -48,15 +48,7 @@ FORMATTER = logzero.LogFormatter(fmt=LOG_FORMAT, datefmt="%H:%M:%S")
 logzero.setup_default_logger(formatter=FORMATTER, level=logging.WARNING)
 
 ENFORCEMENT_API_COMMANDS = ["get", "add", "del"]
-MNGT_API_COMMANDS = [
-    "networks",
-    "roamingcomputers",
-    "internalnetworks",
-    "virtualappliances",
-    "sites",
-    "users",
-    "roles",
-]
+MNGT_API_COMMANDS = umbr_api.management.MNGT_API_COMMANDS
 REPORTING_API_COMMANDS = ["activity", "top", "recent"]
 
 

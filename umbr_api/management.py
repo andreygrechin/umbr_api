@@ -14,19 +14,21 @@ from tabulate import tabulate
 from umbr_api._http_requests import send_get
 from umbr_api.credentials import get_base64, get_orgid
 
-
 # pylint: disable = R0913
+MNGT_API_COMMANDS = [
+    "networks",
+    "roamingcomputers",
+    "internalnetworks",
+    "virtualappliances",
+    "sites",
+    "users",
+    "roles",
+]
+
+
 def management_api(command, orgid=None, cred=None, limit=10, page=1, **kwargs):
     """Send a command to Umbrella Management API."""
-    assert command in [
-        "networks",
-        "roamingcomputers",
-        "internalnetworks",
-        "virtualappliances",
-        "sites",
-        "users",
-        "roles",
-    ]
+    assert command in MNGT_API_COMMANDS
 
     console = kwargs.get("console", True)
     cfg_file = kwargs.get("filename", "umbrella.json")
