@@ -17,7 +17,7 @@ README
   * - GitHub
     - | |gh-tag| |gh-issues|
   * - Guidelines
-    - | |code-style| |editor-config|
+    - | |code-style| |editor-config| |linter-pylint|
 
 .. |docs| image:: https://readthedocs.org/projects/umbr-api/badge/?style=flat
     :target: https://readthedocs.org/projects/umbr_api
@@ -80,21 +80,24 @@ README
     :alt: Code style: black
 
 .. |editor-config| image:: https://img.shields.io/static/v1.svg?label=&message=EditorConfig&color=blue
-    :target: https://editorconfig.org/
+    :target: https://editorconfig.org
     :alt: EditorConfig
 
-**umbr_api** is Cisco Umbrella APIs wrapper and a command-line
-utility.
+.. |linter-pylint| image:: https://img.shields.io/static/v1.svg?label=Linter&message=Pylint&color=blue
+    :target: https://www.pylint.org/
+    :alt: Pylint
+
+**umbr_api** is Cisco Umbrella APIs wrapper and a command-line utility.
 
 `Cisco Umbrella <https://umbrella.cisco.com/>`__ uses the internet’s
 DNS infrastructure to block malicious destinations before a connection is
-ever established. By delivering security from the cloud, not only do you
-save money, but we also provide more effective security.
+ever established. By delivering security from the cloud, it also provide
+more effective security and easy deployment options.
 
 **umbr_api** supports Enforcement API, Reporting API, and Management API
 with some limitations. With help of **umbr_api** you can add new sites and
-URLs to the black list, remove or show current entries, quickly check
-the latest security events, or check the status of registered computers
+URLs to a black lists, remove or show current entries, quickly check
+the latest security events, or check a status of registered computers
 or networks.
 
 Using of command line tools, like **umbr_api** can immediately provide
@@ -106,7 +109,7 @@ References:
     * `Cisco Umbrella Reporting API <https://docs.umbrella.com/umbrella-api/docs/overview/>`__
     * `Cisco Umbrella Management API <https://docs.umbrella.com/umbrella-api/v1.0/reference/>`__
 
-Created mostly for educational purposes.
+Was created mostly for educational purposes.
 
 Installation
 ------------
@@ -117,7 +120,8 @@ To install from a local folder execute at the ‘umbr_api’ root directory:
 
     pip3 install -e .
 
-To install extra requirements from a local folder execute at the ‘umbr_api’ root directory:
+To install extra requirements from a local folder execute at the ‘umbr_api’
+root directory:
 
 .. code:: bash
 
@@ -125,7 +129,8 @@ To install extra requirements from a local folder execute at the ‘umbr_api’ 
     pip3 install -e .[doc]
     pip3 install -e .[dev_lint]
 
-To install from production https://pypi.org execute:
+To install from production The Python Package Index (PyPI) https://pypi.org
+execute:
 
 .. code:: bash
 
@@ -143,8 +148,8 @@ To install from a local archive:
 
     pip3 install filename.tar.gz
 
-Please note, that you still need register and activate API key
-from Cisco to enable functionality.
+Please note, that you still need to register and activate API key from Cisco
+to enable functionality.
 
 Use of command-line utility
 ---------------------------
@@ -152,7 +157,7 @@ Use of command-line utility
 ``main()`` in ``umbrella.py`` will be registered as ``umbrella`` executable.
 So, you can run it directly.
 
-Examples:
+Examples (Enforcement API):
 
 .. code-block:: bash
 
@@ -180,9 +185,8 @@ There three main functions:
     - ``umbr_api.add.add``
     - ``umbr_api.remove.remove``
 
-The API key should be specified via CLI, if not
-functions try to read it from ``enforcement.json`` within package
-``data\`` folder.
+The API key should be specified via CLI, or it could be read it from
+``enforcement.json`` within package ``data\`` folder.
 
 API key
 -------
@@ -195,21 +199,21 @@ You can sign up for 14 day free trial here: https://signup.umbrella.com/
 How to use API key
 ^^^^^^^^^^^^^^^^^^
 
-1. Provide it as an argument for command-line utility
+#. Provide it as an argument for command-line utility
 
 .. code:: bash
 
     umbrella del www.example.com --key YOUR-CUSTOMER-KEY-IS-HERE-0123456789
 
-2. Provide it as part of a program call
+#. Provide it as part of a program call
 
 .. code-block:: python
 
     from umbr_api.get import get_list
     response = get_list(key='YOUR-CUSTOMER-KEY-IS-HERE-0123456789')
 
-3. Create ``data/enforcement.json`` file within **umbr_api** package directory.
-This is an unsecured and unsupported way because of keeping key in clear text
+#. Create ``data/enforcement.json`` file in **umbr_api** package directory.
+This is an unsecured and unsupported way because of storing key in clear text
 format. To find package directory:
 
 .. code-block:: python
@@ -218,7 +222,7 @@ format. To find package directory:
     import umbr_api
     print(os.path.abspath(umbr_api.__file__))
 
-4. API key can be read from a keyring for command-line execution. To save
+#. API key can be read from a keyring for command-line execution. To save
 API key you can use:
 
 .. code-block:: bash
@@ -227,56 +231,56 @@ API key you can use:
     umbrella keyring --show
 
 .. note::
-    - Only MacOS platform is tested for keyrings
-    - By default all python apps can read the value of the key from a keyring
-    - ``umbrella`` will try to use ``--key`` firstly, then keychain, and finally ``data/enforcement.json`` file within **umbr_api** package directory.
+    - Only macOS platform is tested for keyrings
+    - By default all python apps can read the values of the keys from a keyring
+    - ``umbrella`` will try to use ``--key`` firstly, then keychain, and
+    finally ``data/enforcement.json`` file within **umbr_api** package directory.
 
 Supported methods
 -----------------
 
 Enforcement API
 ^^^^^^^^^^^^^^^
-1. Add (POST)
-2. Get (GET)
-3. Remove (DELETE)
+#. Add (POST)
+#. Get (GET)
+#. Remove (DELETE)
 
 Management API
 ^^^^^^^^^^^^^^
-1. Networks (GET)
-2. Roaming Computers (GET)
-3. Internal Networks (GET)
-4. Virtual Appliances (GET)
-5. Sites (GET)
-6. Users (GET)
-7. Roles (GET)
+#. Networks (GET)
+#. Roaming Computers (GET)
+#. Internal Networks (GET)
+#. Virtual Appliances (GET)
+#. Sites (GET)
+#. Users (GET)
+#. Roles (GET)
 
 Reporting API
 ^^^^^^^^^^^^^
-1. Security Activity Report (GET)
-2. Destinations: Top Identities (GET)
-3. Destinations: Most recent requests (GET)
+#. Security Activity Report (GET)
+#. Destinations: Top Identities (GET)
+#. Destinations: Most recent requests (GET)
 
 Limitations
 -----------
 
-1. Lack of documentation
-2. You heed to have an Umbrella subscription or active evaluation
-3. Storing API key within json file is not secure
-4. Asserts will be removed with compiling to optimized byte code. This caused various protections to be removed.
-5. Other methods for change or delete entities are not supported and no plans to do that
+#. Lack of documentation
+#. You heed to have an active subscription or evaluation
+#. Asserts will be removed with compiling to optimized byte code.
+This caused various protections to be removed.
+#. Other methods for change or delete entities are not supported and no
+plans to do that
 
 Known issues
 ------------
 
-Python's binaries may not be signed and they will fail to get access to macOS keyring.
-You should resign them manually to fix it.
-
-.. note::
-
-    keyring.backends._OS_X_API.SecAuthFailure: (-25293, 'Security Auth Failure: make sure python is signed with codesign util')
-
 Error while accessing macOS keyring
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Python's binaries may not be signed and they will fail to get an access to
+macOS keyring. You should resign them manually to fix it. Error message::
+
+    keyring.backends._OS_X_API.SecAuthFailure: (-25293, 'Security Auth Failure: make sure python is signed with codesign util')
 
 .. code-block:: bash
 
