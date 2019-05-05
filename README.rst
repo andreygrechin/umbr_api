@@ -21,6 +21,14 @@ README
     :target: https://readthedocs.org/projects/umbr_api
     :alt: Documentation Status
 
+.. |travis| image:: https://travis-ci.org/kolatz/umbr_api.svg?branch=master
+    :target: https://travis-ci.org/kolatz/umbr_api
+    :alt: Travis Build Status
+
+.. |requires| image:: https://requires.io/github/kolatz/umbr_api/requirements.svg?branch=master
+    :target: https://requires.io/github/kolatz/umbr_api/requirements/?branch=master
+    :alt: Requirements Status
+
 .. |appveyor| image:: https://ci.appveyor.com/api/projects/status/hptdwfa7mcsu5tla/branch/master?svg=true
     :target: https://ci.appveyor.com/project/kolatz/umbr-api/
     :alt: Appveyor Build Status
@@ -29,32 +37,21 @@ README
     :target: https://coveralls.io/github/kolatz/umbr_api?branch=master
     :alt: coveralls
 
-.. |travis| image:: https://travis-ci.org/kolatz/umbr_api.svg?branch=master
-    :target: https://travis-ci.org/kolatz/umbr_api
-    :alt: Travis Build Status
+.. |codacy| image:: https://api.codacy.com/project/badge/Grade/af8d1fa5bca74a029a3be10afc51b857
+    :target: https://www.codacy.com/app/kolatz/umbr_api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kolatz/umbr_api&amp;utm_campaign=Badge_Grade
+    :alt: Codacy Code Quality Status
 
-.. |unused1| image:: https://scrutinizer-ci.com/g/kolatz/umbr_api/badges/build.png?b=master
-    :target: https://scrutinizer-ci.com/g/kolatz/umbr_api/build-status/master
-    :alt: Scrutinizer Build Status
+.. |codeclimate| image:: https://api.codeclimate.com/v1/badges/fc9257657747094f8f5b/maintainability
+    :target: https://codeclimate.com/github/kolatz/umbr_api
+    :alt: Maintainability
 
-.. |docs| image:: https://readthedocs.org/projects/umbr_api/badge/?style=flat
-    :target: https://readthedocs.org/projects/umbr_api
-    :alt: Documentation Status
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/umbr_api.svg
+    :target: https://pypi.python.org/pypi/umbr_api
+    :alt: Supported versions
 
-.. |requires| image:: https://requires.io/github/kolatz/umbr_api/requirements.svg?branch=master
-    :target: https://requires.io/github/kolatz/umbr_api/requirements/?branch=master
-    :alt: Requirements Status
-
-.. |unused2| image:: https://img.shields.io/scrutinizer/g/kolatz/umbr_api/master.svg
-    :target: https://scrutinizer-ci.com/g/kolatz/umbr_api
-    :alt: Scrutinizer Status
-
-.. |unused3| image:: https://landscape.io/github/kolatz/umbr_api/master/landscape.svg?style=flat
-    :target: https://landscape.io/github/kolatz/umbr_api/master
-    :alt: Code Health
-
-.. |unused4| image:: https://img.shields.io/badge/Cisco-Umbrella-blue.svg
-    :target: https://umbrella.cisco.com
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/umbr_api.svg
+    :target: https://pypi.python.org/pypi/umbr_api
+    :alt: Supported implementation
 
 .. |dev-status| image:: https://img.shields.io/pypi/status/umbr_api.svg
     :target: https://pypi.python.org/pypi/umbr_api
@@ -64,33 +61,9 @@ README
     :target: https://pypi.python.org/pypi/umbr_api
     :alt: PyPI Package
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/umbr_api.svg
-    :target: https://pypi.python.org/pypi/umbr_api
-    :alt: Supported implementation
-
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/umbr_api.svg
-    :target: https://pypi.python.org/pypi/umbr_api
-    :alt: Supported versions
-
 .. |license| image:: https://img.shields.io/pypi/l/umbr_api.svg
     :target: https://pypi.python.org/pypi/umbr_api
     :alt: License
-
-.. |unused5| image:: https://img.shields.io/pypi/format/umbr_api.svg
-    :target: https://pypi.python.org/pypi/umbr_api
-    :alt: Format
-
-.. |codeclimate| image:: https://api.codeclimate.com/v1/badges/fc9257657747094f8f5b/maintainability
-    :target: https://codeclimate.com/github/kolatz/umbr_api
-    :alt: Maintainability
-
-.. |codacy| image:: https://api.codacy.com/project/badge/Grade/af8d1fa5bca74a029a3be10afc51b857
-    :target: https://www.codacy.com/app/kolatz/umbr_api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kolatz/umbr_api&amp;utm_campaign=Badge_Grade
-    :alt: Codacy Code Quality Status
-
-.. |unused6| image:: https://img.shields.io/github/release/kolatz/umbr_api.svg
-    :target: https://GitHub.com/kolatz/umbr_api/releases
-    :alt: GitHub release
 
 .. |gh-tag| image:: https://img.shields.io/github/tag/kolatz/umbr_api.svg
     :target: https://GitHub.com/kolatz/umbr_api/tags
