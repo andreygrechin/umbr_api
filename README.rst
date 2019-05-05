@@ -285,6 +285,23 @@ Limitations
 4. Asserts will be removed with compiling to optimized byte code. This caused various protections to be removed.
 5. Other methods for change or delete entities are not supported and no plans to do that
 
+Known issues
+------------
+
+Error while accessing macOS keyring
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    keyring.backends._OS_X_API.SecAuthFailure: (-25293, 'Security Auth Failure: make sure python is signed with codesign util')
+
+    $ codesign -v `which python'
+    /Users/user/.virtualenvs/builings/bin/python: invalid Info.plist (plist or signature have been modified)
+    In architecture: x86_64
+
+    $ codesign -f -s - `which python`
+    /Users/user/.virtualenvs/builings/bin/python: replacing existing signature
+
 Documentation
 -------------
 
