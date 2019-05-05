@@ -86,7 +86,7 @@ ever established. By delivering security from the cloud, not only do you
 save money, but we also provide more effective security.
 
 **umbr_api** supports Enforcement API, Reporting API, and Management API
-with limitations. With help of **umbr_api** you can add new sites and
+with some limitations. With help of **umbr_api** you can add new sites and
 URLs to the black list, remove or show current entries, quickly check
 the latest security events, or check the status of registered computers
 or networks.
@@ -131,7 +131,7 @@ To install from GitHub:
 
     pip3 install git+https://github.com/kolatz/umbr_api.git
 
-To install from local archive:
+To install from a local archive:
 
 .. code:: bash
 
@@ -143,7 +143,8 @@ from Cisco to enable functionality.
 Use of command-line utility
 ---------------------------
 
-``main()`` in ``umbrella.py`` registered as ``umbrella`` executable. So, you can run it directly.
+``main()`` in ``umbrella.py`` will be registered as ``umbrella`` executable.
+So, you can run it directly.
 
 Examples:
 
@@ -188,7 +189,7 @@ You can sign up for 14 day free trial here: https://signup.umbrella.com/
 How to use API key
 ^^^^^^^^^^^^^^^^^^
 
-1. Provide as an argument for command-line utility
+1. Provide it as an argument for command-line utility
 
 .. code:: bash
 
@@ -261,12 +262,16 @@ Limitations
 Known issues
 ------------
 
+Python's binaries may not be signed and they will fail to get access to macOS keyring.
+You shoild resign them manually to fix it.
+
+.. note::
+    keyring.backends._OS_X_API.SecAuthFailure: (-25293, 'Security Auth Failure: make sure python is signed with codesign util')
+
 Error while accessing macOS keyring
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
-
-    keyring.backends._OS_X_API.SecAuthFailure: (-25293, 'Security Auth Failure: make sure python is signed with codesign util')
 
     $ codesign -v `which python'
     /Users/user/.virtualenvs/builings/bin/python: invalid Info.plist (plist or signature have been modified)
