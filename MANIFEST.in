@@ -3,3 +3,17 @@ include README.rst
 include Makefile
 include umbr_api/data/*_example.json
 include umbr_api/data/umbrella.jpg
+global-exclude tests/*
+global-exclude docs/*
+global-exclude examples/*
+exclude tests
+exclude docs
+exclude examples
+exclude pyproject.toml
+exclude .travis.yml
+exclude .appveyor.yml
+exclude .coveragerc
+exclude .editorconfig
+exclude .markdownlint.json
+exclude .pylintrc
+exclude CHANGELOG.md
