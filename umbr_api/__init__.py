@@ -11,8 +11,8 @@ from .__about__ import (
     __uri__,
     __version__,
 )
-from .get import get_list
 from .add import add
+from .get import get_list
 from .remove import remove
 
 __all__ = (
