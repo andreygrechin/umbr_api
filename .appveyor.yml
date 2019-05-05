@@ -1,6 +1,6 @@
 # https://www.appveyor.com/docs/appveyor-yml/
 
-version: '{build}'
+version: "{build}"
 max_jobs: 6
 build: "off"
 shallow_clone: true
@@ -15,6 +15,7 @@ branches:
 
 environment:
   fast_finish: true
+
   matrix:
 
     - PYTHON: "C:\\Python35"
@@ -46,9 +47,11 @@ init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
   - "python --version"
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
+
 install:
   - "python -m pip install --disable-pip-version-check --user --upgrade pip"
   - "pip install -e . --no-use-pep517"
   - "pip install -e .[dev] --no-use-pep517"
+
 test_script:
   - "%CMD_IN_ENV% python setup.py test"
