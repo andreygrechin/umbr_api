@@ -22,18 +22,16 @@ lint:
 	pep257 -s -e tests/
 	pep257 -s -e examples/
 	pep257 -s -e setup.py
-	pylint --disable=R0401,W0511 umbr_api/ tests/ examples/ setup.py
+	pylint --disable=R0401,W0511 umbr_api/ tests/* examples/ setup.py
 
 .PHONY: lint_opt
 lint_opt:
 	pip install -q -e .[lint_opt] --no-use-pep517
 	bandit -r umbr_api/ tests/ examples/ ./setup.py --skip B101
-	isort --check-only -df -rc umbr_api/ tests/ examples/ setup.py
+	isort --check-only -df -rc -tc umbr_api/ tests/ examples/ setup.py
 	safety check
 	pyroma -a ./
-	# isort -ac -rc umbr_api/ tests/ examples/ setup.py
-	# flake8 --statistics --count umbr_api/ tests/ examples/ setup.py
-	# check-manifest -v
+	check-manifest -v
 
 .PHONY: install-dev
 install-dev:

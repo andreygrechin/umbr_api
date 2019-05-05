@@ -233,8 +233,7 @@ API key you can use:
 .. note::
     - Only macOS platform is tested for keyrings
     - By default all python apps can read the values of the keys from a keyring
-    - ``umbrella`` will try to use ``--key`` firstly, then keychain, and
-    finally ``data/enforcement.json`` file within **umbr_api** package directory.
+    - ``umbrella`` will try to use ``--key`` firstly, then keychain, and finally ``data/enforcement.json`` file within **umbr_api** package directory.
 
 Supported methods
 -----------------
@@ -266,10 +265,8 @@ Limitations
 
 #. Lack of documentation
 #. You heed to have an active subscription or evaluation
-#. Asserts will be removed with compiling to optimized byte code.
-This caused various protections to be removed.
-#. Other methods for change or delete entities are not supported and no
-plans to do that
+#. Asserts will be removed with compiling to optimized byte code. This caused various protections to be removed.
+#. Other methods for change or delete entities are not supported and no plans to do that
 
 Known issues
 ------------

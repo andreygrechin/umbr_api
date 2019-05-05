@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=C0103
 """Configuration file for the Sphinx documentation builder."""
 #
 # Configuration file for the Sphinx documentation builder.
