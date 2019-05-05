@@ -48,7 +48,7 @@ init:
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
 install:
   - "python -m pip install --disable-pip-version-check --user --upgrade pip"
-  - "pip install -e ."
-  - "pip install -e .[dev]"
+  - "pip install -e . --no-use-pep517"
+  - "pip install -e .[dev] --no-use-pep517"
 test_script:
   - "%CMD_IN_ENV% python setup.py test"

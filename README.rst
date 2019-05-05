@@ -15,7 +15,9 @@ README
     - | |supported-versions| |supported-implementations|
       | |dev-status| |pypi-version| |license|
   * - GitHub
-    - | |gh-tag| |gh-issues| |code-style|
+    - | |gh-tag| |gh-issues|
+  * - Guidelines
+    - | |code-style| |editor-config|
 
 .. |docs| image:: https://readthedocs.org/projects/umbr-api/badge/?style=flat
     :target: https://readthedocs.org/projects/umbr_api
@@ -76,6 +78,10 @@ README
 .. |code-style| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/python/black
     :alt: Code style: black
+
+.. |editor-config| image:: https://img.shields.io/static/v1.svg?label=&message=EditorConfig&color=blue
+    :target: https://editorconfig.org/
+    :alt: EditorConfig
 
 **umbr_api** is Cisco Umbrella APIs wrapper and a command-line
 utility.
@@ -263,9 +269,10 @@ Known issues
 ------------
 
 Python's binaries may not be signed and they will fail to get access to macOS keyring.
-You shoild resign them manually to fix it.
+You should resign them manually to fix it.
 
 .. note::
+
     keyring.backends._OS_X_API.SecAuthFailure: (-25293, 'Security Auth Failure: make sure python is signed with codesign util')
 
 Error while accessing macOS keyring
