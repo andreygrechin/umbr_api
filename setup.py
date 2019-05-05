@@ -39,7 +39,6 @@ setup(
         "Operating System :: Microsoft :: Windows",
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
@@ -84,7 +83,7 @@ setup(
     project_urls={
         "Cisco Umbrella": "https://umbrella.cisco.com/",
         "Cisco Umbrella Enforcement API": "https://docs.umbrella.com/"
-                                          "developer/enforcement-api/",
+        "developer/enforcement-api/",
     },
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
