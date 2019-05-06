@@ -62,7 +62,6 @@ setup(
         ],
         "doc": ["Sphinx>=1.8.0", "sphinx_rtd_theme>=0.4.2"],
         "lint_dev": [
-            "autopep8>=1.4.3",
             "pep257>=0.7.0",
             "pycodestyle>=2.4.0",
             "pydocstyle>=3.0.0",
