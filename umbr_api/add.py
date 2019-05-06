@@ -4,7 +4,7 @@
 
 Note:
     When posting data to the Security Platform API, the following steps are
-    taken before the domain appears in a customer`s block list. The optional
+    taken before the domain appears in a customer's block list. The optional
     parameter "disableDstSafeguards" can be used to bypass parts of this
     process as outlined in the Generic Event Format Field Descriptions.
     The domain acceptance process is outlined from start to finish here:
@@ -67,7 +67,7 @@ def add(domain=None, url=None, key=None, bypass=False):
 
         if domain != check_url:
             logger.warning(
-                "Domain name part from URL " "doesn`t match DNS domain name"
+                "Domain name part from URL doesn't match DNS domain name"
             )
             logger.warning("DNS domain name: %s", domain)
             logger.warning("URL domain name: %s", check_url)

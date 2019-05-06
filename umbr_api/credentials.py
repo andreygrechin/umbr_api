@@ -57,7 +57,7 @@ def _read_cfg(default_value=None, filename=None, key_to_read=None):
         try:
             file = open(json_config_file_name, "r")
         except FileNotFoundError as msg:
-            print("Error: Cannot find `{}`.".format(json_config_file_name))
+            print("Error: Cannot find '{}'.".format(json_config_file_name))
             print("Please provide credentials via json file or the keyring.")
             logger.debug(msg)
             raise SystemExit(2)
@@ -65,7 +65,7 @@ def _read_cfg(default_value=None, filename=None, key_to_read=None):
             json_data = load(file)
             default_value = json_data[key_to_read]
         except KeyError as msg:
-            print("Error: Cannot find data with in `%s`", filename)
+            print("Error: Cannot find data with in '%s'", filename)
             logger.debug(msg)
             raise SystemExit(1)
         finally:

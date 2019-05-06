@@ -47,7 +47,7 @@ def activity(cred=None, orgid=None, **kwargs):
             Unix (epoch) timestamp in milliseconds. (not implemented)
 
     Returns:
-        requests.Response: Return `requests.Response` class object
+        requests.Response: Return ``requests.Response`` class object
 
     """
     cfg_file = kwargs.get("filename", "umbrella.json")
@@ -83,7 +83,7 @@ def top_identities(destination, cred=None, orgid=None, **kwargs):
         orgid (str): Cisco Umbrella organization ID
 
     Returns:
-        requests.Response: Return `requests.Response` class object
+        requests.Response: Return ``requests.Response`` class object
 
     """
     cfg_file = kwargs.get("filename", "umbrella.json")
@@ -120,7 +120,7 @@ def recent(destination, cred=None, orgid=None, offset=0, **kwargs):
             the next fifty after that.
 
     Returns:
-        requests.Response: Return `requests.Response` class object
+        requests.Response: Return ``requests.Response`` class object
 
     """
     cfg_file = kwargs.get("filename", "umbrella.json")

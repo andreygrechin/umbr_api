@@ -333,8 +333,8 @@ def save_key(key, name):
     if read_key == key:
         print("OK")
     else:
-        print("Error: Provided credentials doesn" "t match to saved.")
-        logging.error("Provided credentials doesn" "t match to saved key.")
+        print("Error: Provided credentials doesn't match to saved.")
+        logging.error("Provided credentials doesn't match to saved key.")
     return 0 if read_key == key else 1
 
 

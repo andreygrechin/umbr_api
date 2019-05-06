@@ -11,8 +11,8 @@ Example:
         >>> print(response.status_code)
         200
 
-    `PEP 484` type annotations are supported. If attribute, parameter, and
-    return types are annotated according to `PEP 484`, they do not need to be
+    PEP 484 type annotations are supported. If attribute, parameter, and
+    return types are annotated according to PEP 484, they do not need to be
     included in the docstring:
 
 Todo:
@@ -41,7 +41,7 @@ def get_list(page=1, limit=10, key=None):
     Args:
         page (int): Page # to request.
         limit (int): Limit number of records to request.
-        key (str): API key, if not specify obtain via `key` module.
+        key (str): API key, if not specify obtain via ``key`` module.
 
     Returns:
         Return ``requests.Response`` object.
