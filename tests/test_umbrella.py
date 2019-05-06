@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# pylint: disable=R0201
+# pylint: disable=no-self-use
 """Test unit."""
 
 import unittest
@@ -12,7 +12,6 @@ class TestCase(unittest.TestCase):
         """User passes no args, should exit with SystemExit."""
         from umbr_api.umbrella import create_parser
 
-        # pylint: disable=W0612
         with self.assertRaises(SystemExit) as expected_exc:
             create_parser()
         # cannot use for tests under diff environments
@@ -26,8 +25,9 @@ class TestCase(unittest.TestCase):
 
         args = argparse.Namespace(command=None, verbose=1)
 
-        with mock.patch('umbr_api.umbrella.create_parser') as \
-                mock_create_parser:
+        with mock.patch(
+            "umbr_api.umbrella.create_parser"
+        ) as mock_create_parser:
 
             mock_create_parser.return_value = args
             with self.assertRaises(SystemExit) as expected_exc:
@@ -46,10 +46,10 @@ class OnlineTestCase(unittest.TestCase):
         from umbr_api.credentials import get_key
 
         # check existing key
-        old_key = get_key(keyring.get_password('python', umbr_api.__title__))
+        old_key = get_key(keyring.get_password("python", umbr_api.__title__))
 
         # save new test key
-        code = save_key('YOUR-CUSTOMER-KEY-IS-HERE-0123456789', "test")
+        code = save_key("YOUR-CUSTOMER-KEY-IS-HERE-0123456789", "test")
         assert code == 0
 
         code = save_key(old_key, "test")
@@ -62,14 +62,12 @@ class OnlineTestCase(unittest.TestCase):
         from umbr_api.umbrella import main
 
         args = argparse.Namespace(
-            command='get',
-            key=None,
-            max_records=5,
-            verbose=2,
-            )
+            command="get", key=None, max_records=5, verbose=2
+        )
 
-        with mock.patch('umbr_api.umbrella.create_parser') as \
-                mock_create_parser:
+        with mock.patch(
+            "umbr_api.umbrella.create_parser"
+        ) as mock_create_parser:
 
             mock_create_parser.return_value = args
             with self.assertRaises(SystemExit) as expected_exc:
@@ -83,14 +81,12 @@ class OnlineTestCase(unittest.TestCase):
         from umbr_api.umbrella import main
 
         args = argparse.Namespace(
-            command='get',
-            key=None,
-            max_records=201,
-            verbose=2,
-            )
+            command="get", key=None, max_records=201, verbose=2
+        )
 
-        with mock.patch('umbr_api.umbrella.create_parser') as \
-                mock_create_parser:
+        with mock.patch(
+            "umbr_api.umbrella.create_parser"
+        ) as mock_create_parser:
 
             mock_create_parser.return_value = args
             with self.assertRaises(SystemExit) as expected_exc:
@@ -98,5 +94,5 @@ class OnlineTestCase(unittest.TestCase):
             self.assertEqual(expected_exc.exception.code, 400)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

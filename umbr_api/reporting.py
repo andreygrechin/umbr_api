@@ -30,9 +30,7 @@ def get_headers(cred=None, filename=None):
     }
 
 
-def activity(
-        cred=None, orgid=None, limit=10,
-        start=None, stop=None, **kwargs):
+def activity(cred=None, orgid=None, **kwargs):
     """Request the last security activities.
 
     Parameters:
@@ -49,29 +47,31 @@ def activity(
             Unix (epoch) timestamp in milliseconds. (not implemented)
 
     Returns:
-        requests.Response: Return `requests.Response` class object
+        requests.Response: Return ``requests.Response`` class object
 
     """
     cfg_file = kwargs.get("filename", "umbrella.json")
+    limit = kwargs.get("limit", 10)
+    start = kwargs.get("start", None)
+    stop = kwargs.get("stop", None)
 
     if start and stop:
         time_filter = "&start={}&stop={}".format(start, stop)
     else:
         time_filter = ""
-    api_uri = "https://reports.api.umbrella.com/v1/organizations" + \
-        "/{}/security-activity?limit={}{}".format(
-            get_orgid(orgid, filename=cfg_file),
-            limit,
-            time_filter,
+    api_uri = (
+        "https://reports.api.umbrella.com/v1/organizations"
+        + "/{}/security-activity?limit={}{}".format(
+            get_orgid(orgid, filename=cfg_file), limit, time_filter
         )
-    response = send_get(
-        url=api_uri,
-        headers=get_headers(cred, filename=cfg_file),
     )
-    if response.status_code == 200:
-        table = json_to_table(json.loads(response.text)["requests"])
+    activity_response = send_get(
+        url=api_uri, headers=get_headers(cred, filename=cfg_file)
+    )
+    if activity_response.status_code == 200:
+        table = json_to_table(json.loads(activity_response.text)["requests"])
         print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
-    return response
+    return activity_response
 
 
 def top_identities(destination, cred=None, orgid=None, **kwargs):
@@ -83,26 +83,27 @@ def top_identities(destination, cred=None, orgid=None, **kwargs):
         orgid (str): Cisco Umbrella organization ID
 
     Returns:
-        requests.Response: Return `requests.Response` class object
+        requests.Response: Return ``requests.Response`` class object
 
     """
     cfg_file = kwargs.get("filename", "umbrella.json")
 
-    api_uri = "https://reports.api.umbrella.com/v1/organizations" + \
-        "/{}/destinations/{}/identities".format(
+    api_uri = (
+        "https://reports.api.umbrella.com/v1/organizations"
+        + "/{}/destinations/{}/identities".format(
             get_orgid(orgid, filename=cfg_file), destination
         )
-    response = send_get(
-        url=api_uri,
-        headers=get_headers(cred, filename=cfg_file),
     )
-    if response.status_code == 200:
-        table = json_to_table(json.loads(response.text)["identities"])
+    ident_response = send_get(
+        url=api_uri, headers=get_headers(cred, filename=cfg_file)
+    )
+    if ident_response.status_code == 200:
+        table = json_to_table(json.loads(ident_response.text)["identities"])
         print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
-    return response
+    return ident_response
 
 
-def recent(destination, cred=None, orgid=None, limit=10, offset=0, **kwargs):
+def recent(destination, cred=None, orgid=None, offset=0, **kwargs):
     """Request the most recent DNS requests for a particular destination.
 
     Parameters:
@@ -119,34 +120,33 @@ def recent(destination, cred=None, orgid=None, limit=10, offset=0, **kwargs):
             the next fifty after that.
 
     Returns:
-        requests.Response: Return `requests.Response` class object
+        requests.Response: Return ``requests.Response`` class object
 
     """
     cfg_file = kwargs.get("filename", "umbrella.json")
+    limit = kwargs.get("limit", 10)
 
-    api_uri = "https://reports.api.umbrella.com/v1/organizations" + \
-        "/{}/destinations/{}/activity?limit={}&offset={}".format(
-            get_orgid(orgid, filename=cfg_file),
-            destination,
-            limit,
-            offset,
+    api_uri = (
+        "https://reports.api.umbrella.com/v1/organizations"
+        + "/{}/destinations/{}/activity?limit={}&offset={}".format(
+            get_orgid(orgid, filename=cfg_file), destination, limit, offset
         )
-    response = send_get(
-        url=api_uri,
-        headers=get_headers(cred, filename=cfg_file),
     )
-    if response.status_code == 200:
-        table = json_to_table(json.loads(response.text)["requests"])
+    recent_response = send_get(
+        url=api_uri, headers=get_headers(cred, filename=cfg_file)
+    )
+    if recent_response.status_code == 200:
+        table = json_to_table(json.loads(recent_response.text)["requests"])
         print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
-    return response
+    return recent_response
 
 
 def main():
     """Test if executed directly."""
     activity()
-    # top_identities('github.com', filename="umbrella.json")
-    # recent('discordapp.com', orgid=None, limit=20, filename="umbrella.json")
+    # top_identities("github.com", filename="umbrella.json")
+    # recent("discordapp.com", orgid=None, limit=20, filename="umbrella.json")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

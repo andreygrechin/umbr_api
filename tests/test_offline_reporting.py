@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-# pylint: disable=R0201
+# pylint: disable=no-self-use
 """Test unit."""
 
 import unittest
+
 from offline_utils import FakeResponse
 
 
@@ -14,9 +15,9 @@ class TestCaseMocking(unittest.TestCase):
         from unittest import mock
         from umbr_api.reporting import activity
 
-        my_response = FakeResponse('data/templates/reporting/case1')
+        my_response = FakeResponse("data/templates/reporting/case1")
 
-        with mock.patch('requests.request') as mock_requests_post:
+        with mock.patch("requests.request") as mock_requests_post:
             mock_requests_post.return_value = my_response
             response = activity(filename="umbrella_example.json")
         assert response.status_code == my_response.status_code
@@ -26,9 +27,9 @@ class TestCaseMocking(unittest.TestCase):
         from unittest import mock
         from umbr_api.reporting import top_identities
 
-        my_response = FakeResponse('data/templates/reporting/case2')
+        my_response = FakeResponse("data/templates/reporting/case2")
 
-        with mock.patch('requests.request') as mock_requests_post:
+        with mock.patch("requests.request") as mock_requests_post:
             mock_requests_post.return_value = my_response
             response = top_identities(
                 "cisco.com", filename="umbrella_example.json"
@@ -40,15 +41,13 @@ class TestCaseMocking(unittest.TestCase):
         from unittest import mock
         from umbr_api.reporting import recent
 
-        my_response = FakeResponse('data/templates/reporting/case3')
+        my_response = FakeResponse("data/templates/reporting/case3")
 
-        with mock.patch('requests.request') as mock_requests_post:
+        with mock.patch("requests.request") as mock_requests_post:
             mock_requests_post.return_value = my_response
-            response = recent(
-                "cisco.com", filename="umbrella_example.json"
-            )
+            response = recent("cisco.com", filename="umbrella_example.json")
         assert response.status_code == my_response.status_code
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

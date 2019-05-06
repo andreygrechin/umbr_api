@@ -1,44 +1,45 @@
 # https://www.appveyor.com/docs/appveyor-yml/
 
-version: '{build}'
+version: "{build}"
 max_jobs: 6
-build: off
+build: "off"
 shallow_clone: true
-# clone_depth: 1
+clone_depth: 1
+
+branches:
+  only:
+    - master
+    - develop
+  except:
+    - nightly
+
 environment:
   fast_finish: true
+
   matrix:
 
-    - PYTHON: "C:\\Python34"
-      PYTHON_VERSION: "3.4.9"
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python34-x64"
-      PYTHON_VERSION: "3.4.9"
-      PYTHON_ARCH: "64"
-
     - PYTHON: "C:\\Python35"
-      PYTHON_VERSION: "3.5.6"
+      PYTHON_VERSION: "3.5.4"
       PYTHON_ARCH: "32"
 
     - PYTHON: "C:\\Python35-x64"
-      PYTHON_VERSION: "3.5.6"
+      PYTHON_VERSION: "3.5.4"
       PYTHON_ARCH: "64"
 
     - PYTHON: "C:\\Python36"
-      PYTHON_VERSION: "3.6.6"
+      PYTHON_VERSION: "3.6.8"
       PYTHON_ARCH: "32"
 
     - PYTHON: "C:\\Python36-x64"
-      PYTHON_VERSION: "3.6.6"
+      PYTHON_VERSION: "3.6.8"
       PYTHON_ARCH: "64"
 
     - PYTHON: "C:\\Python37"
-      PYTHON_VERSION: "3.7.0"
+      PYTHON_VERSION: "3.7.3"
       PYTHON_ARCH: "32"
 
     - PYTHON: "C:\\Python37-x64"
-      PYTHON_VERSION: "3.7.0"
+      PYTHON_VERSION: "3.7.3"
       PYTHON_ARCH: "64"
 
 init:
@@ -46,9 +47,11 @@ init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
   - "python --version"
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
+
 install:
   - "python -m pip install --disable-pip-version-check --user --upgrade pip"
-  - "pip install -e ."
-  - "pip install -e .[dev]"
+  - "pip install -e . --no-use-pep517"
+  - "pip install -e .[dev] --no-use-pep517"
+
 test_script:
   - "%CMD_IN_ENV% python setup.py test"

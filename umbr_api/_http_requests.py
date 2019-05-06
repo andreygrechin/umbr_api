@@ -8,19 +8,19 @@ from logzero import logger
 
 
 def send_get(url, headers=None):
-    """Send HTTP GET request via 'requests' module."""
-    return send_any('GET', url, headers)
+    """Send HTTP GET request via ``requests`` module."""
+    return send_any("GET", url, headers)
 
 
 def send_any(method, url, headers=None, data=None):
-    """Send HTTP request via 'requests' module."""
+    """Send HTTP request via ``requests`` module."""
     assert url
     assert isinstance(url, str)
-    logger.info('Requesting: %s', url)
+    logger.info("Requesting: %s", url)
     if headers:
-        logger.debug('Headers to send: %s', str(headers))
+        logger.debug("Headers to send: %s", str(headers))
     if data:
-        logger.debug('Data to send: %s', str(data))
+        logger.debug("Data to send: %s", str(data))
 
     try:
         response = requests.request(method, url, headers=headers, data=data)
@@ -29,41 +29,39 @@ def send_any(method, url, headers=None, data=None):
         response = None
     else:
         if not response.ok:
-            logger.warning('Response code: %d', response.status_code)
-            logger.warning('Response body: %d', response.text)
-            logger.warning('Response headers: %d', response.headers)
+            logger.warning("Response code: %d", response.status_code)
+            logger.warning("Response body: %d", response.text)
+            logger.warning("Response headers: %d", response.headers)
         response_logging(response)
 
     return response
 
 
 def send_post(url, data=None, headers=None):
-    """Send HTTP POST request via 'requests' module."""
-    return send_any('POST', url, data=data, headers=headers)
+    """Send HTTP POST request via ``requests`` module."""
+    return send_any("POST", url, data=data, headers=headers)
 
 
 def send_delete(url, headers=None):
-    """Send HTTP DELETE request via 'requests' module."""
-    return send_any('DELETE', url, headers=headers)
+    """Send HTTP DELETE request via ``requests`` module."""
+    return send_any("DELETE", url, headers=headers)
 
 
 def response_logging(response):
     """Log responses."""
-    logger.info('Response code: %d', response.status_code)
-    logger.info('Response headers: %s', str(response.headers)[:100])
+    logger.info("Response code: %d", response.status_code)
+    logger.info("Response headers: %s", str(response.headers)[:100])
     logger.debug(
-        'Response headers:\n%s',
-        json.dumps(dict(response.headers), indent=4)
-        )
-    logger.info('Response: %s', response.text[:100])
+        "Response headers:\n%s", json.dumps(dict(response.headers), indent=4)
+    )
+    logger.info("Response: %s", response.text[:100])
     if response.text:
         logger.debug(
-            'Response:\n%s',
-            json.dumps(json.loads(response.text), indent=4)
-            )
+            "Response:\n%s", json.dumps(json.loads(response.text), indent=4)
+        )
     else:
-        logger.debug('Response: <empty>')
+        logger.debug("Response: <empty>")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass

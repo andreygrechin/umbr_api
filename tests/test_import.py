@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# pylint: disable=R0201, W0611
+# pylint: disable=no-self-use
+# pylint: disable=unused-import
 """Test unit."""
 
 import unittest
@@ -15,6 +16,7 @@ class TestCase(unittest.TestCase):
     def test_package_has_version_string(self):
         """Have a __version__ string."""
         import umbr_api
+
         self.assertTrue(isinstance(umbr_api.__version__, str))
 
     def test_import_modules(self):
@@ -30,5 +32,5 @@ class TestCase(unittest.TestCase):
         from umbr_api.remove import remove
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

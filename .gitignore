@@ -3,7 +3,7 @@
 *.code-workspace
 __pycache__/
 *.pyc
-venv/
+.venv/
 .eggs/
 *.egg-info/
 dist/

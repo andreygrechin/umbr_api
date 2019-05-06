@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# pylint: disable=R0201
+# pylint: disable=no-self-use
 """Test unit."""
 
 import unittest
@@ -17,5 +17,5 @@ class OnlineKeyringTestCase(unittest.TestCase):
         assert read == "password123"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

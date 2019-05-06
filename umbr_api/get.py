@@ -7,12 +7,12 @@ Example:
     literal blocks::
 
         >>> from umbr_api.get import get_list
-        >>> response = get_list(key='KEY')
+        >>> response = get_list(key="KEY")
         >>> print(response.status_code)
         200
 
-    `PEP 484` type annotations are supported. If attribute, parameter, and
-    return types are annotated according to `PEP 484`, they do not need to be
+    PEP 484 type annotations are supported. If attribute, parameter, and
+    return types are annotated according to PEP 484, they do not need to be
     included in the docstring:
 
 Todo:
@@ -41,7 +41,7 @@ def get_list(page=1, limit=10, key=None):
     Args:
         page (int): Page # to request.
         limit (int): Limit number of records to request.
-        key (str): API key, if not specify obtain via `key` module.
+        key (str): API key, if not specify obtain via ``key`` module.
 
     Returns:
         Return ``requests.Response`` object.
@@ -54,9 +54,12 @@ def get_list(page=1, limit=10, key=None):
     key = get_key(key=key)
     response = None
 
-    api_uri = 'https://s-platform.api.opendns.com/1.0/' + \
-              'domains?customerKey=' + key
-    api_uri += '&page={0}&limit={1}'.format(page, limit)
+    api_uri = (
+        "https://s-platform.api.opendns.com/1.0/"
+        + "domains?customerKey="
+        + key
+    )
+    api_uri += "&page={0}&limit={1}".format(page, limit)
 
     response = send_get(url=api_uri)
 
@@ -68,22 +71,28 @@ def get_list(page=1, limit=10, key=None):
 def format_response(code, json_response):
     """Format results."""
     if code == 200:
-        print('Page: {}\nLimit: {}\n'.format(json_response['meta']['page'],
-                                             json_response['meta']['limit']))
-        print('{:<20} {:<9} {:<40}'.format('Time added', 'Id', 'Domain'))
-        for record in json_response['data']:
-            time_str = datetime.fromtimestamp(record['lastSeenAt']). \
-                                              strftime('%Y-%m-%d %H:%M:%S')
-            print('{:<20} {:<9} {:<40}'.format(time_str,
-                                               record['id'],
-                                               record['name']))
+        print(
+            "Page: {}\nLimit: {}\n".format(
+                json_response["meta"]["page"], json_response["meta"]["limit"]
+            )
+        )
+        print("{:<20} {:<9} {:<40}".format("Time added", "Id", "Domain"))
+        for record in json_response["data"]:
+            time_str = datetime.fromtimestamp(record["lastSeenAt"]).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            )
+            print(
+                "{:<20} {:<9} {:<40}".format(
+                    time_str, record["id"], record["name"]
+                )
+            )
     else:
-        print('Error')
+        print("Error")
         try:
             for key, value in json_response.items():
-                logger.error('%s %s', key, value)
+                logger.error("%s %s", key, value)
         except KeyError as msg:
-            print('Get abnormal code while read:', code)
+            print("Get abnormal code while read:", code)
             logger.exception(msg)
 
 
@@ -99,5 +108,5 @@ def main(test_key=None):
     get_list(page=1, limit=201, key=test_key)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

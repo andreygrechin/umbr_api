@@ -16,9 +16,12 @@ def get_key(key=None, filename=CFG_FILENAME):
     key_to_return = _read_cfg(
         default_value=key, filename=filename, key_to_read="enforcement"
     )
-    if not(isinstance(key_to_return, str) and len(key_to_return) == 36 and
-           match('^[0-9A-Za-z-]*$', key_to_return)):
-        print('Error: Key is invalid')
+    if not (
+        isinstance(key_to_return, str)
+        and len(key_to_return) == 36
+        and match("^[0-9A-Za-z-]*$", key_to_return)
+    ):
+        print("Error: Key is invalid")
         raise SystemExit(1)
     return key_to_return
 
@@ -39,27 +42,30 @@ def _read_cfg(default_value=None, filename=None, key_to_read=None):
     assert key_to_read
     # if credentials are provided, just check ascii format
     if default_value:
-        if not(isinstance(default_value, str)
-               and match('^[0-9A-Za-z-:]*$', default_value)):
-            print('Error: string has illegal characters')
+        if not (
+            isinstance(default_value, str)
+            and match("^[0-9A-Za-z-:]*$", default_value)
+        ):
+            print("Error: string has illegal characters")
             raise SystemExit(1)
     else:
-        logger.debug('No defaults were provided in the call')
-        logger.debug('Reading the configuration file: %s', filename)
-        json_config_file_name = path.join(path.dirname(__file__),
-                                          'data', filename)
+        logger.debug("No defaults were provided in the call")
+        logger.debug("Reading the configuration file: %s", filename)
+        json_config_file_name = path.join(
+            path.dirname(__file__), "data", filename
+        )
         try:
-            file = open(json_config_file_name, 'r')
+            file = open(json_config_file_name, "r")
         except FileNotFoundError as msg:
-            print('Error: Cannot find `{}`.'.format(json_config_file_name))
-            print('Please provide credentials via json file or the keyring.')
+            print("Error: Cannot find '{}'.".format(json_config_file_name))
+            print("Please provide credentials via json file or the keyring.")
             logger.debug(msg)
             raise SystemExit(2)
         try:
             json_data = load(file)
             default_value = json_data[key_to_read]
         except KeyError as msg:
-            print('Error: Cannot find data with in `%s`', filename)
+            print("Error: Cannot find data with in '%s'", filename)
             logger.debug(msg)
             raise SystemExit(1)
         finally:
@@ -79,15 +85,16 @@ def get_base64(cred=None, filename=CFG_FILENAME, api=None):
 
 def main():
     """Test if executed directly."""
-    logger.debug('Testing getting the key from ``get_key`` API call')
-    test_key = '12345678-980a-bcde-fghi-jklmnopqrstu'
+    logger.debug("Testing getting the key from ``get_key`` API call")
+    test_key = "12345678-980a-bcde-fghi-jklmnopqrstu"
     new_key = get_key(test_key)
     assert test_key == new_key
-    logger.debug('Keys match each other')
+    logger.debug("Keys match each other")
     logger.debug("")
-    logger.debug('Testing reading API key from file')
-    logger.debug('API key from file: %s',
-                 get_key(filename='umbrella_example.json'))
+    logger.debug("Testing reading API key from file")
+    logger.debug(
+        "API key from file: %s", get_key(filename="umbrella_example.json")
+    )
     logger.debug("")
     logger.debug("Testing getting the base64 encoded credentials")
     test_credentials = "Aladdin:OpenSesame"
@@ -101,5 +108,5 @@ def main():
     logger.debug("Encoded strings match each other")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

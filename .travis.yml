@@ -1,49 +1,63 @@
 language: python
+
 env:
   - DEV=true
+
 git:
   depth: false
+
 python:
-- '3.4'
-- '3.5'
-- '3.6'
-# - '3.8-dev'
+  - "3.5"
+  - "3.6"
+
 matrix:
   fast_finish: true
   include:
-    - python: 3.7
+    - python: "3.7"
       dist: xenial
       sudo: true
-  # allow_failures:
-  #   - python: '3.8-dev'
-  #     env: DEV=true
+    - python: "3.8-dev"
+      dist: xenial
+      sudo: true
+  allow_failures:
+    - python: "3.8-dev"
+      env: DEV=true
+
 install:
-- pip install .
-- pip install .[dev,doc]
-# branches:
-#   only:
-#   - master
-#   except:
-#   - develop
+  - pip install .
+  - pip install .[dev,doc]
+
+branches:
+  only:
+    - master
+    - develop
+  except:
+    - nightly
+
 before_script:
+  - pip install -U pip
   - pip install coveralls
+
 script:
-  - make test-offline
+  - make tests-offline
   - if [[ "$TRAVIS_PYTHON_VERSION" = 3.7 ]]; then coverage run -m pytest -k 'not Online' -q --cache-clear tests/; fi
+
 after_success:
   - if [[ "$TRAVIS_PYTHON_VERSION" = 3.7 ]]; then coveralls; fi
+
 notifications:
   email:
     on_success: change
     on_failure: always
+
 deploy:
   provider: pypi
   user: kolatz
-  # branch: master
+  branch: master
   on:
     all_branches: true
     repo: kolatz/umbr_api
-    python: '3.7'
+    python: "3.7"
     tags: true
   password:
     secure: nMcJKWznc9fIklmzADjLFaCowlvBL2mTwQ6JDXzNLr0B0l86fqKrAmUpnOa+CdcXpC0qOW46W+h1wPGXb5uSsejtoZEZ/wi3G+eWPCzYmZoKmcpQDYEkgZfPqtK2Ka15TMDCuA681ExWj8tnGarSlSvLjKfy966TBXozbW7g5gPeQANFFgdprj6z0eFciOrXXNM3yj4fTCXyW96ae5yoZ8YxIRVS6OrJ1zhUOp7c7gOTyjeTji42vlRqq8UM955+fI16zvj+XAtMQbiGoxyjCH2ld4+/Vh5Th+rGBd85bKx13g0CvLsWjfm7+sQq/uWPKFT0bvL9+9X31pSSnV+apNgI4C0v0N/Vk/9VH+8wtWEd8xkG0NYdu2FAAKyKn/9wjpTj/OnCoRXQYXtkxOd67h8t1WjOJHG3MFSM4QJd6sAwoE4BVdUbrIZUdWBsY1tVVzCUW3dla7qv7jGEiu95eBN+/Ihihd6ai+LASngLR59gePid3TuKy6O6GsH/oQOA1f6SzrDPAj/DKIjXHTrSjVVFsqDvqbgiFgbgArGe6MIHeXhwVGbcidpGjomGYjnFgojOw//hzSaTfiEM/073KjyclCTcAV25XhrRxoBXNf8CKRvljxN+cNdGnF4TIDlfvjF1Hdhv7O5kC4KejFKNp80skO2X2U2nsOXPNn4mfT4=
