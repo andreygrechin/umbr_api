@@ -96,7 +96,7 @@ more effective security and easy deployment options.
 
 **umbr_api** supports Enforcement API, Reporting API, and Management API
 with some limitations. With help of **umbr_api** you can add new sites and
-URLs to a black lists, remove or show current entries, quickly check
+URLs to black lists, remove or show current entries, quickly check
 the latest security events, or check a status of registered computers
 or networks.
 
@@ -118,16 +118,16 @@ To install from a local folder execute at the ‘umbr_api’ root directory:
 
 .. code:: bash
 
-    pip3 install -e .
+    pip3 install -e . --no-use-pep517
 
 To install extra requirements from a local folder execute at the ‘umbr_api’
 root directory:
 
 .. code:: bash
 
-    pip3 install -e .[dev]
-    pip3 install -e .[doc]
-    pip3 install -e .[dev_lint]
+    pip3 install -e .[dev] --no-use-pep517
+    pip3 install -e .[doc] --no-use-pep517
+    pip3 install -e .[dev_lint] --no-use-pep517
 
 To install from production The Python Package Index (PyPI) https://pypi.org
 execute:
@@ -284,7 +284,6 @@ macOS keyring. You should resign them manually to fix it. Error message::
     $ codesign -v `which python'
     /Users/user/.virtualenvs/builings/bin/python: invalid Info.plist (plist or signature have been modified)
     In architecture: x86_64
-
     $ codesign -f -s - `which python`
     /Users/user/.virtualenvs/builings/bin/python: replacing existing signature
 
