@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# pylint: disable=R0201
+# pylint: disable=no-self-use
 """Test unit."""
 
 import unittest

@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README badges
 - ci for new python builds
 - sort imports
+- replace pylint exceptions codes with symbolic names
 
 ### Removed
 

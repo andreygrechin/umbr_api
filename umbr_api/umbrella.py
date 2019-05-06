@@ -19,9 +19,9 @@ APIs references:
     https://docs.umbrella.com/umbrella-api/docs/overview
 
 """
-# pylint: disable=R0912
-# pylint: disable=R0914
-# pylint: disable=R0915
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-locals
+# pylint: disable=too-many-statements
 
 import argparse
 import logging

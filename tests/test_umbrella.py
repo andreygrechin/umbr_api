@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# pylint: disable=R0201
+# pylint: disable=no-self-use
 """Test unit."""
 
 import unittest
@@ -12,7 +12,6 @@ class TestCase(unittest.TestCase):
         """User passes no args, should exit with SystemExit."""
         from umbr_api.umbrella import create_parser
 
-        # pylint: disable=W0612
         with self.assertRaises(SystemExit) as expected_exc:
             create_parser()
         # cannot use for tests under diff environments

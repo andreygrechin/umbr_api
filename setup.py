@@ -9,12 +9,12 @@ with open(path.join(path.dirname(__file__), "README.rst")) as read_file:
     LONG_DESCRIPTION = read_file.read()
 
 ABOUT = {}
-# pylint: disable=C0330
+
 with open(
     path.join(path.dirname(__file__), "umbr_api", "__about__.py")
 ) as py_file:
-    # pylint: disable=W0122
-    exec(py_file.read(), ABOUT)  # nosec
+
+    exec(py_file.read(), ABOUT)  # nosec # pylint: disable=exec-used
 
 setup(
     name=ABOUT["__title__"],

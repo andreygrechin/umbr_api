@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# pylint: disable=C0301
 """API call to add a record via Umbrella Enforcement API.
 
 Note:

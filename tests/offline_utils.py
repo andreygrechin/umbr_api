@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# pylint: disable=R0201
+# pylint: disable=no-self-use
 """Test unit."""
 
 import os
@@ -7,8 +7,7 @@ import unittest
 from ast import literal_eval
 
 
-# pylint: disable=R0903
-class FakeResponse:
+class FakeResponse:  # pylint: disable=too-few-public-methods
     """To mimic ``requests`` response obj."""
 
     def __init__(self, case_dir):
@@ -28,7 +27,7 @@ class FakeResponse:
             self.headers = literal_eval(file.read())
         with open(body_file) as file:
             self.text = file.read()
-        # pylint: disable = C0103
+        # pylint: disable=invalid-name
         self.ok = bool(self.status_code >= 200 or self.status_code < 400)
 
 

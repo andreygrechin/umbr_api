@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=C0103
+# pylint: disable=invalid-name
 """Configuration file for the Sphinx documentation builder."""
 #
 # Configuration file for the Sphinx documentation builder.
@@ -25,12 +25,10 @@ sys.path.insert(0, os.path.abspath("."))
 base_dir = os.path.join(os.path.dirname(__file__), os.pardir)
 about = {}
 with open(os.path.join(base_dir, "umbr_api", "__about__.py")) as py_file:
-    # pylint: disable=W0122
-    exec(py_file.read(), about)
+    exec(py_file.read(), about)  # pylint: disable=exec-used
 
 project = about["__title__"]
-# pylint: disable=W0622
-copyright = about["__copyright__"]
+copyright = about["__copyright__"]  # pylint: disable=redefined-builtin
 author = about["__author__"]
 
 # The short X.Y version
