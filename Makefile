@@ -22,7 +22,7 @@ lint:
 	pep257 -s -e tests/
 	pep257 -s -e examples/
 	pep257 -s -e setup.py
-	pylint --disable=R0401,W0511 umbr_api/ tests/* examples/ setup.py
+	pylint --disable=R0401 umbr_api/ tests/* examples/ setup.py
 
 .PHONY: lint_opt
 lint_opt:
@@ -75,8 +75,8 @@ clear-all: clear-pyc clear-cov clear-build clear-doc
 
 .PHONY: clear-venv
 clear-venv:
-	rm -fr ./venv/
-	python3 -m venv venv
+	rm -fr ./.venv/
+	virtualenv .venv
 
 .PHONY: clear-doc
 clear-doc:
