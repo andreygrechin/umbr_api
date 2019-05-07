@@ -281,7 +281,7 @@ macOS keyring. You should resign them manually to fix it. Error message::
 
 .. code-block:: bash
 
-    $ codesign -v `which python'
+    $ codesign -v `which python`
     /Users/user/.virtualenvs/builings/bin/python: invalid Info.plist (plist or signature have been modified)
     In architecture: x86_64
     $ codesign -f -s - `which python`
@@ -290,17 +290,17 @@ macOS keyring. You should resign them manually to fix it. Error message::
 Documentation
 -------------
 
-Documentation pages based on README.rst file and docstrings. Created for educational purposes.
+Documentation pages based on README.rst file and docstrings.
 
 -  http://umbr-api.readthedocs.io/en/latest/
 
 .. note::
-    A symbolic link README.rst --> docs/README.rst was used to create ToC in Sphinx, which doesn't support relative paths for ToC.
+    - A symbolic link README.rst --> docs/README.rst was used to create ToC in Sphinx, which doesn't support relative paths for ToC.
 
 Contribution guidelines
 -----------------------
 
--  https://github.com/kolatz/umbr_api
+-  https://github.com/kolatz/umbr_api/blob/master/docs/CONTRIBUTING.md
 
 Who do I talk to
 ----------------
