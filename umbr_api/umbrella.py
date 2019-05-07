@@ -76,6 +76,10 @@ def create_parser():
         "can be used up to 2 times",
         action="count",
     )
+    parser.add_argument(
+        "--exclude", help="Exclude columns to show (--exclude=0,2,4)", type=str
+    )
+
     subparsers = parser.add_subparsers(title="commands", dest="command")
 
     # add command
@@ -380,6 +384,11 @@ def main(args=None):
     logger.debug("Debug turned on")
     logger.debug("Run with arguments: %s", str(args))
 
+    if args.exclude:
+        exclude_list = list(map(int, args.exclude.split(",")))
+    else:
+        exclude_list = None
+
     if args.command == "keyring":
         if args.key_to_add:
             exit_code = save_key(args.key_to_add, "enforcement")
@@ -422,6 +431,7 @@ def main(args=None):
             "cred": args.key_management,
             "limit": args.limit,
             "page": args.page,
+            "exclude": exclude_list,
         }
 
     if args.command in REPORTING_API_COMMANDS:
@@ -434,7 +444,9 @@ def main(args=None):
         )
 
     if args.command == "get":
-        response = get_list(page=1, limit=args.max_records, key=args.key)
+        response = get_list(
+            page=1, limit=args.max_records, key=args.key, exclude=exclude_list
+        )
 
     if args.command == "add":
         response = add(
@@ -472,6 +484,7 @@ def main(args=None):
             limit=args.limit,
             start=args.start,
             stop=args.stop,
+            exclude=exclude_list,
         )
 
     if args.command == "top":
@@ -479,6 +492,7 @@ def main(args=None):
             destination=args.destination,
             cred=args.key_reporting,
             orgid=args.orgid,
+            exclude=exclude_list,
         )
 
     if args.command == "recent":
@@ -488,6 +502,7 @@ def main(args=None):
             orgid=args.orgid,
             limit=args.limit,
             offset=args.offset,
+            exclude=exclude_list,
         )
 
     if response is not None:

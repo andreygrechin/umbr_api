@@ -20,7 +20,7 @@ class TestCaseMocking(unittest.TestCase):
         my_response = FakeResponse("data/templates/get/case1")
 
         args = argparse.Namespace(
-            command="get", key=FAKE_KEY, max_records=2, verbose=2
+            command="get", key=FAKE_KEY, max_records=2, verbose=2, exclude=None
         )
 
         with mock.patch("requests.request") as mock_requests_post:
@@ -40,6 +40,7 @@ class TestCaseMocking(unittest.TestCase):
             key_to_add=None,
             show_enforcement=True,
             verbose=0,
+            exclude=None,
         )
 
         with self.assertRaises(SystemExit) as expected_exc:

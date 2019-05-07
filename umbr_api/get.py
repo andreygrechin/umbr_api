@@ -27,12 +27,14 @@ import json
 from datetime import datetime
 
 from logzero import logger
+from tabulate import tabulate
 
 from umbr_api._http_requests import send_get
 from umbr_api.credentials import get_key
+from umbr_api.management import json_to_table
 
 
-def get_list(page=1, limit=10, key=None):
+def get_list(page=1, limit=10, key=None, exclude=None):
     """Return response tuple as response to API call.
 
     Note:
@@ -63,12 +65,12 @@ def get_list(page=1, limit=10, key=None):
 
     response = send_get(url=api_uri)
 
-    format_response(response.status_code, json.loads(response.text))
+    format_response(response.status_code, json.loads(response.text), exclude)
 
     return response
 
 
-def format_response(code, json_response):
+def format_response(code, json_response, exclude):
     """Format results."""
     if code == 200:
         print(
@@ -76,16 +78,14 @@ def format_response(code, json_response):
                 json_response["meta"]["page"], json_response["meta"]["limit"]
             )
         )
-        print("{:<20} {:<9} {:<40}".format("Time added", "Id", "Domain"))
-        for record in json_response["data"]:
+        for idx, record in enumerate(json_response["data"]):
             time_str = datetime.fromtimestamp(record["lastSeenAt"]).strftime(
                 "%Y-%m-%d %H:%M:%S"
             )
-            print(
-                "{:<20} {:<9} {:<40}".format(
-                    time_str, record["id"], record["name"]
-                )
-            )
+            json_response["data"][idx]["lastSeenAt"] = time_str
+
+        table = json_to_table(json_response["data"], exclude_col=exclude)
+        print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
     else:
         print("Error")
         try:

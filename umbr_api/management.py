@@ -31,6 +31,7 @@ def management_api(command, orgid=None, cred=None, limit=10, page=1, **kwargs):
 
     console = kwargs.get("console", True)
     cfg_file = kwargs.get("filename", "umbrella.json")
+    exclude = kwargs.get("exclude", None)
 
     api_uri = (
         "https://management.api.umbrella.com/v1/organizations"
@@ -49,7 +50,9 @@ def management_api(command, orgid=None, cred=None, limit=10, page=1, **kwargs):
 
     if response.status_code == 200:
         if console:
-            table = json_to_table(json.loads(response.text))
+            table = json_to_table(
+                json.loads(response.text), exclude_col=exclude
+            )
             print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
     else:
         logger.error(
@@ -58,7 +61,7 @@ def management_api(command, orgid=None, cred=None, limit=10, page=1, **kwargs):
     return response
 
 
-def json_to_table(_json):
+def json_to_table(_json, exclude_col=None):
     """Convert json object to table."""
     table = list()
     for row in _json:
@@ -80,6 +83,10 @@ def json_to_table(_json):
                 headers.append(attribute)
         table.append(line)
     table.insert(0, headers)
+    if exclude_col:
+        for row in table:
+            for each_col in sorted(exclude_col, reverse=True):
+                del row[each_col]
     return table
 
 

@@ -54,6 +54,7 @@ def activity(cred=None, orgid=None, **kwargs):
     limit = kwargs.get("limit", 10)
     start = kwargs.get("start", None)
     stop = kwargs.get("stop", None)
+    exclude = kwargs.get("exclude", None)
 
     if start and stop:
         time_filter = "&start={}&stop={}".format(start, stop)
@@ -69,7 +70,9 @@ def activity(cred=None, orgid=None, **kwargs):
         url=api_uri, headers=get_headers(cred, filename=cfg_file)
     )
     if activity_response.status_code == 200:
-        table = json_to_table(json.loads(activity_response.text)["requests"])
+        table = json_to_table(
+            json.loads(activity_response.text)["requests"], exclude_col=exclude
+        )
         print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
     return activity_response
 
@@ -87,6 +90,7 @@ def top_identities(destination, cred=None, orgid=None, **kwargs):
 
     """
     cfg_file = kwargs.get("filename", "umbrella.json")
+    exclude = kwargs.get("exclude", None)
 
     api_uri = (
         "https://reports.api.umbrella.com/v1/organizations"
@@ -98,7 +102,9 @@ def top_identities(destination, cred=None, orgid=None, **kwargs):
         url=api_uri, headers=get_headers(cred, filename=cfg_file)
     )
     if ident_response.status_code == 200:
-        table = json_to_table(json.loads(ident_response.text)["identities"])
+        table = json_to_table(
+            json.loads(ident_response.text)["identities"], exclude_col=exclude
+        )
         print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
     return ident_response
 
@@ -124,6 +130,7 @@ def recent(destination, cred=None, orgid=None, offset=0, **kwargs):
 
     """
     cfg_file = kwargs.get("filename", "umbrella.json")
+    exclude = kwargs.get("exclude", None)
     limit = kwargs.get("limit", 10)
 
     api_uri = (
@@ -136,7 +143,9 @@ def recent(destination, cred=None, orgid=None, offset=0, **kwargs):
         url=api_uri, headers=get_headers(cred, filename=cfg_file)
     )
     if recent_response.status_code == 200:
-        table = json_to_table(json.loads(recent_response.text)["requests"])
+        table = json_to_table(
+            json.loads(recent_response.text)["requests"], exclude_col=exclude
+        )
         print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
     return recent_response
 
