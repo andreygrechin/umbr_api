@@ -73,7 +73,11 @@ def activity(cred=None, orgid=None, **kwargs):
         table = json_to_table(
             json.loads(activity_response.text)["requests"], exclude_col=exclude
         )
-        print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
+        print(
+            tabulate(
+                table[1:], headers=table[0], tablefmt=kwargs.get("format")
+            )
+        )
     return activity_response
 
 
@@ -105,7 +109,11 @@ def top_identities(destination, cred=None, orgid=None, **kwargs):
         table = json_to_table(
             json.loads(ident_response.text)["identities"], exclude_col=exclude
         )
-        print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
+        print(
+            tabulate(
+                table[1:], headers=table[0], tablefmt=kwargs.get("format")
+            )
+        )
     return ident_response
 
 
@@ -146,7 +154,11 @@ def recent(destination, cred=None, orgid=None, offset=0, **kwargs):
         table = json_to_table(
             json.loads(recent_response.text)["requests"], exclude_col=exclude
         )
-        print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
+        print(
+            tabulate(
+                table[1:], headers=table[0], tablefmt=kwargs.get("format")
+            )
+        )
     return recent_response
 
 

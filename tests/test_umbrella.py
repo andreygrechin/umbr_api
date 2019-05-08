@@ -23,7 +23,9 @@ class TestCase(unittest.TestCase):
         from unittest import mock
         from umbr_api.umbrella import main
 
-        args = argparse.Namespace(command=None, verbose=1, exclude=None)
+        args = argparse.Namespace(
+            command=None, verbose=1, exclude=None, format="simple"
+        )
 
         with mock.patch(
             "umbr_api.umbrella.create_parser"
@@ -62,7 +64,12 @@ class OnlineTestCase(unittest.TestCase):
         from umbr_api.umbrella import main
 
         args = argparse.Namespace(
-            command="get", key=None, max_records=5, verbose=2, exclude=None
+            command="get",
+            key=None,
+            max_records=5,
+            verbose=2,
+            exclude=None,
+            format="simple",
         )
 
         with mock.patch(
@@ -81,7 +88,12 @@ class OnlineTestCase(unittest.TestCase):
         from umbr_api.umbrella import main
 
         args = argparse.Namespace(
-            command="get", key=None, max_records=201, verbose=2, exclude=None
+            command="get",
+            key=None,
+            max_records=201,
+            verbose=2,
+            exclude=None,
+            format="simple",
         )
 
         with mock.patch(

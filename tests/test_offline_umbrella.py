@@ -20,7 +20,60 @@ class TestCaseMocking(unittest.TestCase):
         my_response = FakeResponse("data/templates/get/case1")
 
         args = argparse.Namespace(
-            command="get", key=FAKE_KEY, max_records=2, verbose=2, exclude=None
+            command="get",
+            key=FAKE_KEY,
+            max_records=2,
+            verbose=2,
+            exclude=None,
+            format="simple",
+        )
+
+        with mock.patch("requests.request") as mock_requests_post:
+            mock_requests_post.return_value = my_response
+
+            with self.assertRaises(SystemExit) as expected_exc:
+                main(args)
+        self.assertEqual(expected_exc.exception.code, 200)
+
+    def test_umbrella_main_get_exclude(self):
+        """Test with columns filtration."""
+        import argparse
+        from unittest import mock
+        from umbr_api.umbrella import main
+
+        my_response = FakeResponse("data/templates/get/case1")
+
+        args = argparse.Namespace(
+            command="get",
+            key=FAKE_KEY,
+            max_records=2,
+            verbose=2,
+            exclude="id,name",
+            format="simple",
+        )
+
+        with mock.patch("requests.request") as mock_requests_post:
+            mock_requests_post.return_value = my_response
+
+            with self.assertRaises(SystemExit) as expected_exc:
+                main(args)
+        self.assertEqual(expected_exc.exception.code, 200)
+
+    def test_umbrella_main_get_exclude_non_exist(self):
+        """Test with columns filtration."""
+        import argparse
+        from unittest import mock
+        from umbr_api.umbrella import main
+
+        my_response = FakeResponse("data/templates/get/case1")
+
+        args = argparse.Namespace(
+            command="get",
+            key=FAKE_KEY,
+            max_records=2,
+            verbose=2,
+            exclude="1234",
+            format="simple",
         )
 
         with mock.patch("requests.request") as mock_requests_post:
@@ -41,6 +94,7 @@ class TestCaseMocking(unittest.TestCase):
             show_enforcement=True,
             verbose=0,
             exclude=None,
+            format="simple",
         )
 
         with self.assertRaises(SystemExit) as expected_exc:

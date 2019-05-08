@@ -32,6 +32,7 @@ def management_api(command, orgid=None, cred=None, limit=10, page=1, **kwargs):
     console = kwargs.get("console", True)
     cfg_file = kwargs.get("filename", "umbrella.json")
     exclude = kwargs.get("exclude", None)
+    table_format = kwargs.get("format")
 
     api_uri = (
         "https://management.api.umbrella.com/v1/organizations"
@@ -53,7 +54,7 @@ def management_api(command, orgid=None, cred=None, limit=10, page=1, **kwargs):
             table = json_to_table(
                 json.loads(response.text), exclude_col=exclude
             )
-            print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
+            print(tabulate(table[1:], headers=table[0], tablefmt=table_format))
     else:
         logger.error(
             "HTTP Status code: %s\n%s", response.status_code, response.text
@@ -61,8 +62,23 @@ def management_api(command, orgid=None, cred=None, limit=10, page=1, **kwargs):
     return response
 
 
-def json_to_table(_json, exclude_col=None):
+def find_columns(items_to_look_for, list_to_search_in):
+    """Search entries of list items in a list, return indexes."""
+    found_indexes = []  # to collect numbers of columns to remove
+    for item_to_look_for in items_to_look_for:
+        # search multiple entries
+        for idx, item_to_search_in in enumerate(list_to_search_in):
+            if item_to_look_for in item_to_search_in:
+                found_indexes.append(idx)
+    return set(found_indexes)  # use `set` to remove duplicates
+
+
+def json_to_table(
+    _json, exclude_col=None
+):  # pylint: disable=too-many-branches
     """Convert json object to table."""
+    if not _json:
+        return [["No data"]]
     table = list()
     for row in _json:
         line = list()
@@ -83,9 +99,10 @@ def json_to_table(_json, exclude_col=None):
                 headers.append(attribute)
         table.append(line)
     table.insert(0, headers)
-    if exclude_col:
-        for row in table:
-            for each_col in sorted(exclude_col, reverse=True):
+    if exclude_col:  # if user flag to exclude columns from output
+        columns_to_remove = find_columns(exclude_col, headers)
+        for row in table:  # removing columns
+            for each_col in sorted(columns_to_remove, reverse=True):
                 del row[each_col]
     return table
 

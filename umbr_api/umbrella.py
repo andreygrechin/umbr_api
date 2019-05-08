@@ -30,6 +30,7 @@ import sys
 import keyring
 import logzero
 from logzero import logger
+from tabulate import tabulate_formats
 
 import umbr_api
 import umbr_api.management
@@ -50,6 +51,8 @@ logzero.setup_default_logger(formatter=FORMATTER, level=logging.WARNING)
 ENFORCEMENT_API_COMMANDS = ["get", "add", "del"]
 MNGT_API_COMMANDS = umbr_api.management.MNGT_API_COMMANDS
 REPORTING_API_COMMANDS = ["activity", "top", "recent"]
+
+DEFAULT_TABLE_FORMAT = "grid"
 
 
 def create_parser():
@@ -77,7 +80,23 @@ def create_parser():
         action="count",
     )
     parser.add_argument(
-        "--exclude", help="Exclude columns to show (--exclude=0,2,4)", type=str
+        "-e",
+        "--exclude",
+        help=(
+            "Exclude columns to show, ex. -e=modifiedAt "
+            "or -e createdAt,internalIp"
+        ),
+        type=str,
+    )
+
+    parser.add_argument(
+        "-f",
+        "--format",
+        help=(
+            "Format output tables ex. -f=grid or -f grid. "
+            "Supported formats: " + ", ".join(tabulate_formats)
+        ),
+        type=str,
     )
 
     subparsers = parser.add_subparsers(title="commands", dest="command")
@@ -210,7 +229,11 @@ def create_parser():
         default=10,
     )
     parser_roles.add_argument(
-        "--page", help="Number of page to show", type=int, default=0
+        # roles call requires page number equal to 1 or higher
+        "--page",
+        help="Number of page to show",
+        type=int,
+        default=1,
     )
 
     # activity command
@@ -385,9 +408,15 @@ def main(args=None):
     logger.debug("Run with arguments: %s", str(args))
 
     if args.exclude:
-        exclude_list = list(map(int, args.exclude.split(",")))
+        exclude_list = args.exclude.split(",")
     else:
         exclude_list = None
+
+    if args.format:
+        assert args.format in tabulate_formats
+        table_format = args.format
+    else:
+        table_format = DEFAULT_TABLE_FORMAT
 
     if args.command == "keyring":
         if args.key_to_add:
@@ -432,6 +461,7 @@ def main(args=None):
             "limit": args.limit,
             "page": args.page,
             "exclude": exclude_list,
+            "format": table_format,
         }
 
     if args.command in REPORTING_API_COMMANDS:
@@ -445,7 +475,11 @@ def main(args=None):
 
     if args.command == "get":
         response = get_list(
-            page=1, limit=args.max_records, key=args.key, exclude=exclude_list
+            page=1,
+            limit=args.max_records,
+            key=args.key,
+            exclude=exclude_list,
+            **{"format": table_format},
         )
 
     if args.command == "add":
@@ -485,6 +519,7 @@ def main(args=None):
             start=args.start,
             stop=args.stop,
             exclude=exclude_list,
+            **{"format": table_format},
         )
 
     if args.command == "top":
@@ -493,6 +528,7 @@ def main(args=None):
             cred=args.key_reporting,
             orgid=args.orgid,
             exclude=exclude_list,
+            **{"format": table_format},
         )
 
     if args.command == "recent":
@@ -503,6 +539,7 @@ def main(args=None):
             limit=args.limit,
             offset=args.offset,
             exclude=exclude_list,
+            **{"format": table_format},
         )
 
     if response is not None:

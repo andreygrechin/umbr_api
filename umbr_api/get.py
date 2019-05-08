@@ -34,7 +34,7 @@ from umbr_api.credentials import get_key
 from umbr_api.management import json_to_table
 
 
-def get_list(page=1, limit=10, key=None, exclude=None):
+def get_list(page=1, limit=10, key=None, exclude=None, **kwargs):
     """Return response tuple as response to API call.
 
     Note:
@@ -65,12 +65,14 @@ def get_list(page=1, limit=10, key=None, exclude=None):
 
     response = send_get(url=api_uri)
 
-    format_response(response.status_code, json.loads(response.text), exclude)
+    format_response(
+        response.status_code, json.loads(response.text), exclude, **kwargs
+    )
 
     return response
 
 
-def format_response(code, json_response, exclude):
+def format_response(code, json_response, exclude, **kwargs):
     """Format results."""
     if code == 200:
         print(
@@ -85,7 +87,11 @@ def format_response(code, json_response, exclude):
             json_response["data"][idx]["lastSeenAt"] = time_str
 
         table = json_to_table(json_response["data"], exclude_col=exclude)
-        print(tabulate(table[1:], headers=table[0], tablefmt="simple"))
+        print(
+            tabulate(
+                table[1:], headers=table[0], tablefmt=kwargs.get("format")
+            )
+        )
     else:
         print("Error")
         try:
@@ -99,12 +105,14 @@ def format_response(code, json_response, exclude):
 def main(test_key=None):
     """Test if executed directly."""
     # Standard request
-    get_list(key=test_key)
+
+    get_list(key=test_key, **{"format": "psql"})
 
     # Request with pagination
     get_list(page=2, limit=2, key=test_key)
 
-    # Request with pagination
+    # Request with pagination, max limit is 200 records,
+    # so the last one will fail with error 400
     get_list(page=1, limit=201, key=test_key)
 
 

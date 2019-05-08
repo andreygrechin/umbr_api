@@ -5,7 +5,7 @@ __title__ = "umbr_api"
 __summary__ = "Cisco Umbrella APIs wrapper and command-line utility"
 __uri__ = "https://github.com/kolatz/umbr_api"
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 
 __author__ = "kolatz"
 __email__ = "private@example.com"
