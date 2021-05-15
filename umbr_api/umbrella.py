@@ -380,6 +380,14 @@ def main(args=None):
     logger.debug("Debug turned on")
     logger.debug("Run with arguments: %s", str(args))
 
+    exclude_list = args.exclude.split(",") if args.exclude else None
+
+    if args.format:
+        assert args.format in tabulate_formats
+        table_format = args.format
+    else:
+        table_format = DEFAULT_TABLE_FORMAT
+
     if args.command == "keyring":
         if args.key_to_add:
             exit_code = save_key(args.key_to_add, "enforcement")
@@ -403,11 +411,11 @@ def main(args=None):
 
         raise SystemExit(exit_code)
 
-    if args.command in ENFORCEMENT_API_COMMANDS:
-        if args.key is None:
-            logger.debug("Reading API credentials from the system keyring")
-            args.key = keyring.get_password(umbr_api.__title__, "enforcement")
+    if args.command in ENFORCEMENT_API_COMMANDS and args.key is None:
+        logger.debug("Reading API credentials from the system keyring")
+        args.key = keyring.get_password(umbr_api.__title__, "enforcement")
 
+    management_api_keys = None
     if args.command in MNGT_API_COMMANDS:
         logger.debug("Reading OrgId from the system keyring")
         args.orgid = keyring.get_password(umbr_api.__title__, "orgid")

@@ -91,16 +91,16 @@ README
 
 `Cisco Umbrella <https://umbrella.cisco.com/>`__ uses the internet’s
 DNS infrastructure to block malicious destinations before a connection is
-ever established. By delivering security from the cloud, it also provide
-more effective security and easy deployment options.
+ever established. By delivering security from the cloud, it also provides
+more effective security and simple deployment options.
 
 **umbr_api** supports Enforcement API, Reporting API, and Management API
-with some limitations. With help of **umbr_api** you can add new sites and
-URLs to black lists, remove or show current entries, quickly check
-the latest security events, or check a status of registered computers
+with some limitations. With the help of **umbr_api**, you can add new sites and
+URLs to blacklists, remove or show current entries, quickly check
+the latest security events, or check the status of registered computers
 or networks.
 
-Using of command line tools, like **umbr_api** can immediately provide
+Using command-line tools, like **umbr_api**, can immediately provide
 information to administrators of the system without myriads of clicks
 through GUI interfaces, two-factor authentications, etc.
 
@@ -109,7 +109,7 @@ References:
     * `Cisco Umbrella Reporting API <https://docs.umbrella.com/umbrella-api/docs/overview/>`__
     * `Cisco Umbrella Management API <https://docs.umbrella.com/umbrella-api/v1.0/reference/>`__
 
-Was created mostly for educational purposes.
+**umbr_api** was created mostly for educational purposes.
 
 Installation
 ------------
@@ -120,7 +120,7 @@ To install from a local folder execute at the ‘umbr_api’ root directory:
 
     pip3 install -e . --no-use-pep517
 
-To install extra requirements from a local folder execute at the ‘umbr_api’
+To install other requirements from a local folder, execute at the ‘umbr_api’
 root directory:
 
 .. code:: bash
@@ -129,7 +129,7 @@ root directory:
     pip3 install -e .[doc] --no-use-pep517
     pip3 install -e .[dev_lint] --no-use-pep517
 
-To install from production The Python Package Index (PyPI) https://pypi.org
+To install from production The Python Package Index (PyPI) https://pypi.org/
 execute:
 
 .. code:: bash
@@ -148,13 +148,13 @@ To install from a local archive:
 
     pip3 install filename.tar.gz
 
-Please note, that you still need to register and activate API key from Cisco
+Please note that you still need to register and activate the API key from Cisco
 to enable functionality.
 
 Use of command-line utility
 ---------------------------
 
-``main()`` in ``umbrella.py`` will be registered as ``umbrella`` executable.
+``main()`` in ``umbrella.py`` is registered as ``umbrella`` executable.
 So, you can run it directly.
 
 Examples (Enforcement API):
@@ -188,18 +188,18 @@ There three main functions:
 The API key should be specified via CLI, or it could be read it from
 ``enforcement.json`` within package ``data\`` folder.
 
-API key
--------
+The API key
+-----------
 
-How to obtain API key
-^^^^^^^^^^^^^^^^^^^^^
+How to obtain the API key
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can sign up for 14 day free trial here: https://signup.umbrella.com/
+You can sign up for a 14-day free trial here: https://signup.umbrella.com/
 
-How to use API key
-^^^^^^^^^^^^^^^^^^
+How to use the API key
+^^^^^^^^^^^^^^^^^^^^^^
 
-#. Provide it as an argument for command-line utility
+#. Provide it as an argument for the command-line utility
 
 .. code:: bash
 
@@ -213,8 +213,8 @@ How to use API key
     response = get_list(key='YOUR-CUSTOMER-KEY-IS-HERE-0123456789')
 
 #. Create ``data/enforcement.json`` file in **umbr_api** package directory.
-This is an unsecured and unsupported way because of storing key in clear text
-format. To find package directory:
+This is an unsecured and unsupported way because of storing keys in clear text
+format. To find the package directory:
 
 .. code-block:: python
 
@@ -222,8 +222,8 @@ format. To find package directory:
     import umbr_api
     print(os.path.abspath(umbr_api.__file__))
 
-#. API key can be read from a keyring for command-line execution. To save
-API key you can use:
+#. The API key can be read from a keyring for command-line execution. To save
+the API key, you can use:
 
 .. code-block:: bash
 
@@ -231,9 +231,9 @@ API key you can use:
     umbrella keyring --show
 
 .. note::
-    - Only macOS platform is tested for keyrings
-    - By default all python apps can read the values of the keys from a keyring
-    - ``umbrella`` will try to use ``--key`` firstly, then keychain, and finally ``data/enforcement.json`` file within **umbr_api** package directory.
+    - Keyrings tested only for macOS platforms
+    - By default, all python apps can read the values of the keys from a keyring
+    - ``umbrella`` tries to use ``--key`` firstly, then keychain, and finally ``data/enforcement.json`` file within the **umbr_api** package directory.
 
 Supported methods
 -----------------
@@ -266,7 +266,7 @@ Limitations
 #. Lack of documentation
 #. You heed to have an active subscription or evaluation
 #. Asserts will be removed with compiling to optimized byte code. This caused various protections to be removed.
-#. Other methods for change or delete entities are not supported and no plans to do that
+#. Other methods for change or delete entities are not supported, and no plans to do that.
 
 Known issues
 ------------
@@ -274,7 +274,7 @@ Known issues
 Error while accessing macOS keyring
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Python's binaries may not be signed and they will fail to get an access to
+Python's binaries may not be signed, and they fail to get access to
 macOS keyring. You should resign them manually to fix it. Error message::
 
     keyring.backends._OS_X_API.SecAuthFailure: (-25293, 'Security Auth Failure: make sure python is signed with codesign util')
@@ -302,7 +302,148 @@ Contribution guidelines
 
 -  https://github.com/kolatz/umbr_api
 
-Who do I talk to
-----------------
+Whom do I talk to
+-----------------
 
 -  https://github.com/kolatz/
+
+Examples of output
+------------------
+
+.. code-block:: bash
+
+    $ umbrella get
+    Page: 1
+    Limit: 10
+
+    +----------+-----------------+---------------------+
+    |       id | name            | lastSeenAt          |
+    +==========+=================+=====================+
+    |     2201 | example.com     | 2018-10-21 00:12:05 |
+    +----------+-----------------+---------------------+
+    | 29996557 | qqq.example.com | 2018-03-05 22:33:24 |
+    +----------+-----------------+---------------------+
+
+.. code-block:: bash
+
+    $ umbrella networks
+    +---------+------------+-------------+--------------+----------------+-------------+----------+--------------------------+
+    | name    |   originId | isDynamic   | isVerified   |   prefixLength | ipAddress   | status   | createdAt                |
+    +=========+============+=============+==============+================+=============+==========+==========================+
+    | VPN Ams |  154312952 | True        | True         |             32 | 90.154.51.1 | CLOSED   | 2018-06-02T08:03:31.000Z |
+    +---------+------------+-------------+--------------+----------------+-------------+----------+--------------------------+
+    $
+
+.. code-block:: bash
+
+    $ umbrella -e originId,deviceId,osVersionName,appliedBundle,lastSync roamingcomputers
+    +---------+----------+-----------+---------------------------------------------------------+-----------------+-----------------+
+    | type    | status   | version   | osVersion                                               | name            | hasIpBlocking   |
+    +=========+==========+===========+=========================================================+=================+=================+
+    | roaming | Open     | 2.1.4     | NSMACHOperatingSystem (Version 10.13.6 (Build 17G6030)) | air             | False           |
+    +---------+----------+-----------+---------------------------------------------------------+-----------------+-----------------+
+    | roaming | Off      | 2.2.150   | Microsoft Windows [Version 10.0.15063]                  | LAPTOP-17T1KDT4 | False           |
+    +---------+----------+-----------+---------------------------------------------------------+-----------------+-----------------+
+    $
+
+.. code-block:: bash
+
+    $ umbrella internalnetworks
+    +------------+-------------+----------------+--------------------------+--------------------------+----------+------------+------------+
+    |   originId | ipAddress   |   prefixLength | createdAt                | modifiedAt               |   siteId | name       | siteName   |
+    +============+=============+================+==========================+==========================+==========+============+============+
+    |  190843164 | 192.168.1.0 |             24 | 2018-10-04T18:59:05.000Z | 2018-10-04T18:59:05.000Z |   599748 | Main LAN   |            |
+    +------------+-------------+----------------+--------------------------+--------------------------+----------+------------+------------+
+    |  190843328 | 172.16.0.0  |             12 | 2018-10-04T19:00:05.000Z | 2018-10-04T19:00:05.000Z |   599748 | Docker LAN |            |
+    +------------+-------------+----------------+--------------------------+--------------------------+----------+------------+------------+
+    $
+
+.. code-block:: bash
+
+    $ umbrella -e domains,queryFailureRateAcceptable,modifiedAt,state,UpdatedAt,lastSyncTime,originId,createdAt,type,externalIP,isUpgradable virtualappliances
+    +---------------+------------+------------+---------------------+------------+----------+----------+-----------+
+    | settings      | settings   |   settings | settings            | settings   |   siteId | health   | name      |
+    | internalIPs   | hostType   |     uptime | isDnscryptEnabled   | version    |          |          |           |
+    +===============+============+============+=====================+============+==========+==========+===========+
+    | 192.168.1.15  | hyperv     |      15607 | False               | 2.4.4      |   599748 | okay     | umbrella2 |
+    +---------------+------------+------------+---------------------+------------+----------+----------+-----------+
+    | 192.168.1.14  | hyperv     |      15063 | False               | 2.4.4      |   599748 | okay     | umbrella1 |
+    +---------------+------------+------------+---------------------+------------+----------+----------+-----------+
+    $
+
+.. code-block:: bash
+
+    $ umbrella sites
+    +------------+-------------+--------------+--------------------------+--------------------------+--------+------------------------+-----------+----------+
+    |   originId | isDefault   | name         | modifiedAt               | createdAt                | type   |   internalNetworkCount |   vaCount |   siteId |
+    +============+=============+==============+==========================+==========================+========+========================+===========+==========+
+    |  117852936 | True        | Default Site | 2017-12-05T21:23:04.000Z | 2017-12-05T21:23:04.000Z | site   |                      2 |         2 |   599748 |
+    +------------+-------------+--------------+--------------------------+--------------------------+--------+------------------------+-----------+----------+
+
+.. code-block:: bash
+
+    $ umbrella users
+    +-------------+------------+--------------------+------------+----------+----------+-------------------+---------+---------------+--------------------------+
+    | firstname   | lastname   | email              | role       |   roleId | status   | twoFactorEnable   |      id | timezone      | lastLoginTime            |
+    +=============+============+====================+============+==========+==========+===================+=========+===============+==========================+
+    | Andrey      | Grechin    | angrechi@cisco.com | Full Admin |        1 | Active   | True              | 9571796 | Europe/Moscow | 2019-05-01T08:43:57.000Z |
+    +-------------+------------+--------------------+------------+----------+----------+-------------------+---------+---------------+--------------------------+
+
+.. code-block:: bash
+
+    $ umbrella roles
+    +------------------+-------------------+----------+
+    |   organizationId | label             |   roleId |
+    +==================+===================+==========+
+    |                0 | Full Admin        |        1 |
+    +------------------+-------------------+----------+
+    |                0 | Read Only         |        2 |
+    +------------------+-------------------+----------+
+    |                0 | Block Page Bypass |        3 |
+    +------------------+-------------------+----------+
+    |                0 | Reporting Only    |        4 |
+    +------------------+-------------------+----------+
+    $
+
+.. code-block:: bash
+
+    $ umbrella -e=datetime,externalIp,destination,originID activity --limit 2
+    +------------+-----------------+--------------+--------------+--------+---------------+---------------+
+    |   originId | originType      | internalIp   | categories   | tags   | originLabel   | actionTaken   |
+    +============+=================+==============+==============+========+===============+===============+
+    |  252626430 | Network Devices | 192.168.1.41 | Blogs        |        | r1-c1111      | BLOCKED       |
+    |            |                 |              | Malware      |        |               |               |
+    |            |                 |              | Web Hosting  |        |               |               |
+    +------------+-----------------+--------------+--------------+--------+---------------+---------------+
+    |  252626430 | Network Devices | 192.168.1.41 | Blogs        |        | r1-c1111      | BLOCKED       |
+    |            |                 |              | Malware      |        |               |               |
+    |            |                 |              | Web Hosting  |        |               |               |
+    +------------+-----------------+--------------+--------------+--------+---------------+---------------+
+    $
+
+.. code-block:: bash
+
+    $ umbrella top cisco.com
+    +--------+---------------+------------------+------------+--------------------+
+    |   rank | originLabel   | originType       |   originId |   numberOfRequests |
+    +========+===============+==================+============+====================+
+    |      1 | Main LAN      | internal_network |  190843164 |                  4 |
+    +--------+---------------+------------------+------------+--------------------+
+    $
+
+.. code-block:: bash
+
+    $ umbrella -e originId,destination,externalIp recent cisco.com --limit 2
+    +--------+-----------------+--------------+---------------------+---------------+---------------+--------------------------+
+    | tags   | originType      | internalIp   | categories          | originLabel   | actionTaken   | datetime                 |
+    +========+=================+==============+=====================+===============+===============+==========================+
+    |        | Network Devices | 192.168.1.13 | Software/Technology | r1-c1111      | ALLOWED       | 2019-05-11T19:40:25.646Z |
+    |        |                 |              | Business Services   |               |               |                          |
+    |        |                 |              | Allow List          |               |               |                          |
+    +--------+-----------------+--------------+---------------------+---------------+---------------+--------------------------+
+    |        | Network Devices | 192.168.1.13 | Software/Technology | r1-c1111      | ALLOWED       | 2019-05-11T19:40:25.633Z |
+    |        |                 |              | Business Services   |               |               |                          |
+    |        |                 |              | Allow List          |               |               |                          |
+    |        |                 |              | Software Updates    |               |               |                          |
+    +--------+-----------------+--------------+---------------------+---------------+---------------+--------------------------+
+    $
